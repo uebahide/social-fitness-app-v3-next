@@ -1,7 +1,7 @@
-import { UserForm } from '../common'
+import { LoginForm } from '@/components/LoginForm'
 
 export default function Login() {
   return (
-    <UserForm type="login"/>
+    <LoginForm/>
   )
 }

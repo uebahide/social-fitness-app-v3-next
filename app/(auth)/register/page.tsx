@@ -1,7 +1,7 @@
-import { UserForm } from '../common'
+import { RegisterForm } from '@/components/RegisterForm'
 
 export default function Register() {
   return (
-    <UserForm type="register"/>
+    <RegisterForm type="register"/>
   )
 }

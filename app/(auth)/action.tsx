@@ -7,7 +7,7 @@ import z from "zod"
 
 const  schema = z.object({
     name : z.string().min(1, "Name is required"),
-    email: z.string().email("Invalid email"),
+    email: z.email("Invalid email"),
     password: z.string().min(8, "Password must be at least 8 characters"),
     password_confirmation: z.string()
 }).refine((data) => data.password === data.password_confirmation, {
@@ -32,7 +32,7 @@ export async function register(prevState: any, formData: FormData) {
   if(!validatedFields.success){
     return {
         errors: validatedFields.error.flatten().fieldErrors,
-        messages: "",
+        message: "",
         data
     }
   }
@@ -59,7 +59,7 @@ export async function register(prevState: any, formData: FormData) {
   if(!res.ok){
     return {
       errors: resJson.errors,
-      messages: resJson.message,
+      message: resJson.message,
       data
     }
   }
