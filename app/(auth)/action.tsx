@@ -16,17 +16,11 @@ const  schema = z.object({
 })
  
 export async function register(prevState: any, formData: FormData) {
-  const name = formData.get('name')
-  const email = formData.get('email')
-  const password = formData.get('password')
-
-  const data = {
-    name : String(formData.get("name") ?? ""),
-    email : String(formData.get("email") ?? ""),
-    password : String(formData.get("password") ?? ""),
-    password_confirmation : String(formData.get("password_confirmation") ?? "")
-  }
-
+  const name = String(formData.get("name") ?? "")
+  const email = String(formData.get("email") ?? "")
+  const password = String(formData.get("password") ?? "")
+  const password_confirmation = String(formData.get("password_confirmation") ?? "")
+  const data = {name, email, password, password_confirmation}
   const validatedFields = schema.safeParse(data)
 
   if(!validatedFields.success){
@@ -74,8 +68,8 @@ export async function register(prevState: any, formData: FormData) {
 }
 
 export async function login(prevState: any, formData: FormData){
-  const email = formData.get('email')
-  const password = formData.get('password')
+  const email = String(formData.get('email') ?? "")
+  const password = String(formData.get('password') ?? "")
 
   let res: Response
   
