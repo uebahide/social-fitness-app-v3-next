@@ -1,1 +1,1 @@
-export type buttonColor = "primary" | "secondary"
+export type buttonColor = "primary" | "secondary";
