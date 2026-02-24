@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
-export const ErrorMessage = ({children} : {children: React.ReactNode}) => {
-    return (
-        <div className='text-red-500'>{children}</div>
-    )
-}
+export const ErrorMessage = ({ children }: { children: React.ReactNode }) => {
+  return <div className="text-red-500">{children}</div>;
+};
