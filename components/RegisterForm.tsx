@@ -2,7 +2,7 @@
 
 import { register } from '@/app/(auth)/action'
 import { useActionState } from 'react'
-import { RegisterButton } from './buttons/RegisterButton'
+import {SubmitButton } from './buttons/SubmitButton'
 
 const initialState = {
     errors : {},
@@ -18,7 +18,7 @@ const initialState = {
 export const RegisterForm = () => {
   const [state, formAction] = useActionState(register, initialState)
   return (
-    <form action={formAction} className="flex flex-col items-left gap-1">
+    <form action={formAction} className="flex flex-col items-center gap-1 ">
         <div className="flex gap-2">
             <label htmlFor="name">Name</label>
             <input defaultValue={state.data.name} type="text" id="name" name="name" className="border rounded-sm border-gray-400" required/>
@@ -39,7 +39,7 @@ export const RegisterForm = () => {
             <input defaultValue={state.data.password_confirmation} type="password" id="password_confirmation" name="password_confirmation" className="border rounded-sm border-gray-400" required/>
             <div className='text-red-500'>{state.errors['password_confirmation']}</div>
         </div>
-        <RegisterButton/>
+        <SubmitButton>Register</SubmitButton>
     </form>
   )
 }
