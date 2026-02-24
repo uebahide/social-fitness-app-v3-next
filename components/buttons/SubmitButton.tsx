@@ -7,11 +7,14 @@ import { cn } from '@/lib/utils'
 
 export const SubmitButton = ({color = "primary", className ,children} : {color?:buttonColor, className?:string, children: React.ReactNode}) => {
   const { pending } = useFormStatus()
+
+  console.log(pending)
   return (
     <Button 
         color={color} 
-        type_property='submit' 
+        type='submit' 
         className={cn(className)}
+        disabled={pending}
     >
         {
             pending ? <Spinner/> : children
