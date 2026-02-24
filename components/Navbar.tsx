@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import React from 'react'
 import Logo from './Logo'
 import Link from 'next/link'
@@ -12,7 +11,7 @@ export default function Navbar() {
             <Logo/>
         </Link>
         <div className="flex flex-col gap-6">
-            <CustomLink href="/" className="shadow-sm rounded-lg text-center px-8 py-2">Home</CustomLink>
+            <CustomLink href="/">Home</CustomLink>
             <CustomLink href="/activity">Activity</CustomLink>
         </div>
     </div>

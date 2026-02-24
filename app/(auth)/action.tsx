@@ -11,7 +11,7 @@ const  schema = z.object({
     password: z.string().min(8, "Password must be at least 8 characters"),
     password_confirmation: z.string()
 }).refine((data) => data.password === data.password_confirmation, {
-  message: "This field should be same value as password",
+  message: "This field should have the same value as password",
   path : ['password_confirmation']
 })
  

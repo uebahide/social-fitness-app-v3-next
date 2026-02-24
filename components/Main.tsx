@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function Main({children}: { children: React.ReactNode }) {
   return (
-    <div>{children}</div>
+    <div className="p-10">{children}</div>
   )
 }
