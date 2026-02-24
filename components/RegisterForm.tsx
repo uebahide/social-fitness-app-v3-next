@@ -1,4 +1,3 @@
-
 'use client'
 
 import { register } from '@/app/(auth)/action'
