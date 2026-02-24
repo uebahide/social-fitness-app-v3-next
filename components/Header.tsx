@@ -1,7 +1,10 @@
-import React from 'react'
+import { LogoutButton } from './LogoutButton'
 
-export default function Header() {
+export default async function Header() {
+
   return (
-    <div className="border-b border-gray-200 flex justify-end">header</div>
+    <div className="border-b border-gray-200 flex justify-end h-10">
+        <LogoutButton />
+    </div>
   )
 }
