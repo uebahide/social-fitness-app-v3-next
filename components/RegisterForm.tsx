@@ -2,6 +2,7 @@
 
 import { register } from '@/app/(auth)/action'
 import { useActionState } from 'react'
+import { RegisterButton } from './buttons/RegisterButton'
 
 const initialState = {
     errors : {},
@@ -38,9 +39,7 @@ export const RegisterForm = () => {
             <input defaultValue={state.data.password_confirmation} type="password" id="password_confirmation" name="password_confirmation" className="border rounded-sm border-gray-400" required/>
             <div className='text-red-500'>{state.errors['password_confirmation']}</div>
         </div>
-        <button type="submit" className="rounded-lg px-2 py-1 cursor-pointer bg-brand-primary-300 hover:bg-brand-primary-400 shadow-sm" >
-            Register
-        </button>
+        <RegisterButton/>
     </form>
   )
 }
