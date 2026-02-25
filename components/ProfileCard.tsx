@@ -11,6 +11,7 @@ import { User } from '@/types/api/user';
 import { updateImage, updateProfile } from '@/app/profile/action';
 import { ErrorMessage } from './authForm/ErrorMessage';
 import { init } from 'next/dist/compiled/webpack/webpack';
+import { Avatar } from './Avatar';
 
 export default function ProfileCard() {
   const { user } = useUser();
@@ -35,9 +36,6 @@ const ImageForm = ({ user }: { user: User | null }) => {
   const [state, formAction] = useActionState(updateImage, null);
   const [error, setError] = useState('');
   const [image, setImage] = useState(null);
-  const imagePath = user?.image_path ? `${process.env.NEXT_PUBLIC_API_URL}${user?.image_path}` : '';
-
-  console.log(imagePath);
 
   const handleFileChange = (e) => {
     setError('');
@@ -63,12 +61,8 @@ const ImageForm = ({ user }: { user: User | null }) => {
           <div className="relative h-20 w-20 overflow-hidden rounded-full">
             <Image src={URL.createObjectURL(image)} alt="avatar" fill className="object-cover" />
           </div>
-        ) : imagePath ? (
-          <div className="relative h-20 w-20 overflow-hidden rounded-full">
-            <Image src={imagePath} alt="avatar" fill className="object-cover" unoptimized />
-          </div>
         ) : (
-          <AvatarPlaceholder />
+          <Avatar size="large" />
         )}
         <ErrorMessage>{error}</ErrorMessage>
         <input
