@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-export const Form = ({
+export const AuthForm = ({
   title,
   footerText,
   action,
@@ -12,17 +12,14 @@ export const Form = ({
   children: React.ReactNode;
 }) => {
   return (
-    <form
-      action={action}
-      className="w-[500px] rounded-lg px-15 py-3 shadow-lg space-y-5"
-    >
+    <form action={action} className="w-[500px] space-y-5 rounded-lg px-15 py-3 shadow-lg">
       <div className="text-center text-2xl">
         <p>{title}</p>
       </div>
 
       {children}
 
-      <div className="text-center mb-3">{footerText}</div>
+      <div className="mb-3 text-center">{footerText}</div>
     </form>
   );
 };

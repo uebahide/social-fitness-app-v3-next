@@ -1,35 +1,35 @@
-"use client";
+'use client';
 
-import { register } from "@/app/(auth)/action";
-import { useActionState } from "react";
-import { SubmitButton } from "./buttons/SubmitButton";
-import Link from "next/link";
-import { Form } from "./form/Form";
-import { FormRow } from "./form/FormRow";
-import { Input } from "./form/Input";
-import { ErrorMessage } from "./form/ErrorMessage";
+import { register } from '@/app/(auth)/action';
+import { useActionState } from 'react';
+import { SubmitButton } from './buttons/SubmitButton';
+import Link from 'next/link';
+import { AuthForm } from './authForm/Form';
+import { FormRow } from './authForm/FormRow';
+import { Input } from './authForm/Input';
+import { ErrorMessage } from './authForm/ErrorMessage';
 
 const initialState = {
   errors: {},
-  message: "",
+  message: '',
   data: {
-    name: "",
-    email: "",
-    password: "",
-    password_confirmation: "",
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
   },
 };
 
 export const RegisterForm = () => {
   const [state, formAction] = useActionState(register, initialState);
   return (
-    <Form
+    <AuthForm
       action={formAction}
       title="Create new account"
       footerText={
-        <div className="text-center mb-3">
+        <div className="mb-3 text-center">
           <p>
-            Have an account?{" "}
+            Have an account?{' '}
             <Link href="/login" className="text-brand-secondary-500">
               Sign in
             </Link>
@@ -39,26 +39,14 @@ export const RegisterForm = () => {
     >
       <FormRow>
         <label htmlFor="name">Name</label>
-        <Input
-          defaultValue={state.data.name}
-          type="text"
-          id="name"
-          name="name"
-          required
-        />
-        <ErrorMessage>{state.errors["name"]}</ErrorMessage>
+        <Input defaultValue={state.data.name} type="text" id="name" name="name" required />
+        <ErrorMessage>{state.errors['name']}</ErrorMessage>
       </FormRow>
 
       <FormRow>
         <label htmlFor="email">Email</label>
-        <Input
-          defaultValue={state.data.email}
-          type="email"
-          id="email"
-          name="email"
-          required
-        />
-        <ErrorMessage>{state.errors["email"]}</ErrorMessage>
+        <Input defaultValue={state.data.email} type="email" id="email" name="email" required />
+        <ErrorMessage>{state.errors['email']}</ErrorMessage>
       </FormRow>
 
       <FormRow>
@@ -70,7 +58,7 @@ export const RegisterForm = () => {
           name="password"
           required
         />
-        <ErrorMessage>{state.errors["password"]}</ErrorMessage>
+        <ErrorMessage>{state.errors['password']}</ErrorMessage>
       </FormRow>
 
       <FormRow>
@@ -82,10 +70,10 @@ export const RegisterForm = () => {
           name="password_confirmation"
           required
         />
-        <ErrorMessage>{state.errors["password_confirmation"]}</ErrorMessage>
+        <ErrorMessage>{state.errors['password_confirmation']}</ErrorMessage>
       </FormRow>
 
-      <SubmitButton className="w-full mt-10 mb-5">Register</SubmitButton>
-    </Form>
+      <SubmitButton className="mt-10 mb-5 w-full">Register</SubmitButton>
+    </AuthForm>
   );
 };

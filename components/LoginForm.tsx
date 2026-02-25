@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { login } from "@/app/(auth)/action";
-import { useActionState } from "react";
-import { Form } from "./form/Form";
-import { SubmitButton } from "./buttons/SubmitButton";
-import { ErrorMessage } from "./form/ErrorMessage";
-import { FormRow } from "./form/FormRow";
-import { Input } from "./form/Input";
-import Link from "next/link";
+import { login } from '@/app/(auth)/action';
+import { useActionState } from 'react';
+import { AuthForm } from './authForm/Form';
+import { SubmitButton } from './buttons/SubmitButton';
+import { ErrorMessage } from './authForm/ErrorMessage';
+import { FormRow } from './authForm/FormRow';
+import { Input } from './authForm/Input';
+import Link from 'next/link';
 
 const initialState = {
-  error: "",
+  error: '',
   data: {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   },
 };
 
@@ -21,7 +21,7 @@ export const LoginForm = () => {
   const [state, formAction] = useActionState(login, initialState);
 
   return (
-    <Form
+    <AuthForm
       action={formAction}
       title="Login"
       footerText={
@@ -29,7 +29,7 @@ export const LoginForm = () => {
           <p>
             Have no account yet?
             <Link href="/register" className="text-brand-secondary-500">
-              {" "}
+              {' '}
               Sign up now!
             </Link>
           </p>
@@ -39,13 +39,7 @@ export const LoginForm = () => {
       <ErrorMessage>{state.error}</ErrorMessage>
       <FormRow>
         <label htmlFor="email">Email</label>
-        <Input
-          defaultValue={state.data.email}
-          type="email"
-          id="email"
-          name="email"
-          required
-        />
+        <Input defaultValue={state.data.email} type="email" id="email" name="email" required />
       </FormRow>
       <FormRow>
         <label htmlFor="password">Password</label>
@@ -57,7 +51,7 @@ export const LoginForm = () => {
           required
         />
       </FormRow>
-      <SubmitButton className="w-full mt-10 mb-5">Login</SubmitButton>
-    </Form>
+      <SubmitButton className="mt-10 mb-5 w-full">Login</SubmitButton>
+    </AuthForm>
   );
 };

@@ -1,8 +1,11 @@
+'use client';
+
 import { User } from '@/types/api/user';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 type UserState = {
   user: User | null;
+  setUser: (u: User | null) => void;
 };
 
 const userContext = createContext<UserState | undefined>(undefined);
@@ -14,8 +17,12 @@ export const UserProvider = ({
   initialUser: User | null;
   children: React.ReactNode;
 }) => {
+  useEffect(() => {
+    setUser(initialUser);
+  }, [initialUser]);
+
   const [user, setUser] = useState<User | null>(initialUser);
-  return <userContext.Provider value={{ user }}>{children}</userContext.Provider>;
+  return <userContext.Provider value={{ user, setUser }}>{children}</userContext.Provider>;
 };
 
 export const useUser = () => {

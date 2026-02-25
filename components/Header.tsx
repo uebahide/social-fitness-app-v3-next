@@ -1,9 +1,13 @@
-import { LogoutButton } from "./LogoutButton";
+'use client';
 
-export default async function Header() {
+import { useUser } from '@/contexts/UserProvider';
+import { LogoutButton } from './LogoutButton';
+import { useEffect } from 'react';
+
+export default function Header() {
+  const { user, setUser } = useUser();
+
   return (
-    <div className="border-b border-gray-200 flex justify-end h-10">
-      <LogoutButton />
-    </div>
+    <div className="flex h-10 justify-end border-b border-gray-200">{user && <LogoutButton />}</div>
   );
 }

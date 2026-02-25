@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { logout } from "@/app/(auth)/action";
-import { useActionState } from "react";
+import { logout } from '@/app/(auth)/action';
+import { useActionState } from 'react';
 
 export const LogoutButton = () => {
   const [state, formAction] = useActionState(logout, null);
   return (
     <form action={formAction}>
       <button
-        className="cursor-pointer shadow-lg m-2 px-2 bg-brand-secondary-400 rounded-lg text-white hover:bg-brand-secondary-500"
+        className="bg-brand-secondary-400 hover:bg-brand-secondary-500 m-2 cursor-pointer rounded-lg px-2 text-white shadow-lg"
         type="submit"
       >
         logout
