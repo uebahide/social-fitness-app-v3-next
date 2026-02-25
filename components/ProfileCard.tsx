@@ -8,8 +8,9 @@ import Image from 'next/image';
 import AvatarPlaceholder from './AvatarPlaceholder';
 import { useActionState, useState } from 'react';
 import { User } from '@/types/api/user';
-import { updateImage } from '@/app/profile/action';
+import { updateImage, updateProfile } from '@/app/profile/action';
 import { ErrorMessage } from './authForm/ErrorMessage';
+import { init } from 'next/dist/compiled/webpack/webpack';
 
 export default function ProfileCard() {
   const { user } = useUser();
@@ -84,30 +85,42 @@ const ImageForm = ({ user }: { user: User | null }) => {
   );
 };
 
+const initialState = {
+  errors: {},
+  message: '',
+  data: {
+    name: '',
+    email: '',
+  },
+};
+
 const ProfileForm = ({ user }: { user: User | null }) => {
+  const [state, formAction] = useActionState(updateProfile, initialState);
   return (
-    <form className="grid grid-cols-[1fr_1fr] gap-x-4 gap-y-8">
+    <form action={formAction} className="grid grid-cols-[1fr_1fr] gap-x-4 gap-y-8">
       <FormRow>
         <label>Name</label>
         <Input
-          defaultValue={user?.name ?? ''}
+          defaultValue={state.data.name || user?.name || ''}
           type="text"
           name="name"
           id="name"
           className="h-10"
           required
         />
+        <ErrorMessage>{state.errors.name}</ErrorMessage>
       </FormRow>
       <FormRow>
         <label>Email</label>
         <Input
-          defaultValue={user?.email ?? ''}
+          defaultValue={state.data.email || user?.email || ''}
           type="email"
           name="email"
           id="email"
           className="h-10"
           required
         />
+        <ErrorMessage>{state.errors.email}</ErrorMessage>
       </FormRow>
       <div className="col-span-2 flex justify-end">
         <SubmitButton className="h-10">Update</SubmitButton>
