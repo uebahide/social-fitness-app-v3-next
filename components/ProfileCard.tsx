@@ -56,7 +56,7 @@ const ImageForm = ({ user }: { user: User | null }) => {
     <form action={formAction} className="flex items-end justify-between gap-5">
       <label className="cursor-pointer">
         {image ? (
-          <div className="relative h-20 w-20 overflow-hidden rounded-full">
+          <div className="relative h-30 w-30 overflow-hidden rounded-full">
             <Image src={URL.createObjectURL(image)} alt="avatar" fill className="object-cover" />
           </div>
         ) : (
