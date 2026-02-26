@@ -5,12 +5,10 @@ import { SubmitButton } from './buttons/SubmitButton';
 import { Input } from './authForm/Input';
 import { FormRow } from './authForm/FormRow';
 import Image from 'next/image';
-import AvatarPlaceholder from './AvatarPlaceholder';
 import { useActionState, useState } from 'react';
 import { User } from '@/types/api/user';
 import { updateImage, updateProfile } from '@/app/profile/action';
 import { ErrorMessage } from './authForm/ErrorMessage';
-import { init } from 'next/dist/compiled/webpack/webpack';
 import { Avatar } from './Avatar';
 
 export default function ProfileCard() {
@@ -35,9 +33,9 @@ export default function ProfileCard() {
 const ImageForm = ({ user }: { user: User | null }) => {
   const [state, formAction] = useActionState(updateImage, null);
   const [error, setError] = useState('');
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<File | null>(null);
 
-  const handleFileChange = (e) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError('');
     const file = e.target.files?.[0];
     if (!file) return;
