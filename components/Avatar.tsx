@@ -14,7 +14,7 @@ export const Avatar = ({
   className?: string;
 }) => {
   const { user } = useUser();
-  const imagePath = user?.image_path ? `${process.env.NEXT_PUBLIC_API_URL}${user?.image_path}` : '';
+  const imagePath = user?.image_path ? `${process.env.NEXT_PUBLIC_S3_URL}${user.image_path}` : '';
   return imagePath ? (
     <div
       className={cn(

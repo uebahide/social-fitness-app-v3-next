@@ -22,6 +22,14 @@ export async function updateImage(prevState: any, formData: FormData) {
     throw new Error(`Network error while logout : ${String(e)}`);
   }
 
+  const resJson = await res.json();
+
+  if (!res.ok) {
+    throw new Error(`${resJson.error}: ${res.status}, ${res.statusText}`);
+  }
+
+  console.log(resJson);
+
   revalidatePath('/profile', 'layout');
   redirect('/profile');
 }
