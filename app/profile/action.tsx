@@ -69,7 +69,6 @@ export async function updateProfile(prevState: any, formData: FormData) {
   }
 
   const resJson = await res.json();
-
   if (!res.ok) {
     return {
       errors: resJson.errors,

@@ -1,4 +1,4 @@
-export type activity = {
+export type ActivityType = {
   id: string;
   title: string;
   description: string;
