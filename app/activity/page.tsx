@@ -1,3 +1,4 @@
+import ActivityCard from '@/components/ActivityCard';
 import AddActivityButton from '@/components/AddActivityButton';
 import { Input } from '@/components/authForm/Input';
 import { Button } from '@/components/buttons/Button';
@@ -39,11 +40,7 @@ export default async function Activity() {
       <div className="grid grid-cols-[2fr_1fr] gap-5">
         <div className="space-y-4">
           {activities.map((activity: ActivityType) => {
-            return (
-              <div className="space-y-4 rounded-sm bg-white shadow-sm" key={activity.id}>
-                <div>{activity.title}</div>
-              </div>
-            );
+            return <ActivityCard activity={activity} key={activity.id} />;
           })}
         </div>
 
