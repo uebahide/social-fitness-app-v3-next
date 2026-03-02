@@ -2,18 +2,17 @@
 
 import { useUser } from '@/contexts/UserProvider';
 import { SubmitButton } from './buttons/SubmitButton';
-import { Input } from './authForm/Input';
-import { FormRow } from './authForm/FormRow';
+import { Input } from './form/Input';
+import { FormRow } from './form/FormRow';
 import Image from 'next/image';
 import { useActionState, useState } from 'react';
 import { User } from '@/types/api/user';
 import { updateImage, updateProfile } from '@/app/profile/action';
-import { ErrorMessage } from './authForm/ErrorMessage';
+import { ErrorMessage } from './form/ErrorMessage';
 import { Avatar } from './Avatar';
 
 export default function ProfileCard() {
   const { user } = useUser();
-  console.log(user);
 
   return (
     <div className="w-[700px] space-y-10 bg-white p-10 shadow-sm">

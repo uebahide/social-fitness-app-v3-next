@@ -16,8 +16,6 @@ export const SubmitButton = ({
   children: React.ReactNode;
 }) => {
   const { pending } = useFormStatus();
-
-  console.log(pending);
   return (
     <Button color={color} type="submit" className={cn(className)} disabled={pending}>
       {pending ? <Spinner /> : children}

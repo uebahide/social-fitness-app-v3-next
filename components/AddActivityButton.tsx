@@ -1,42 +1,36 @@
 'use client';
 
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from './buttons/Button';
-import { FormRow } from './authForm/FormRow';
-import { Input } from './authForm/Input';
-import { SubmitButton } from './buttons/SubmitButton';
-import { ErrorMessage } from './authForm/ErrorMessage';
 import { useActionState, useEffect, useState } from 'react';
 import { createActivity } from '@/app/activity/action';
+import { ActivityForm } from './ActivityForm';
+import { Category } from '@/types/api/category';
 
-const initialState = {
+const createActivityInitialState = {
   errors: {},
   message: '',
   data: {
     title: '',
     description: '',
+    category: '',
+    details: {},
   },
   ok: false,
 };
 
-export default function AddActivityButton() {
-  const [state, formAction] = useActionState(createActivity, initialState);
+export type CreateActivityState = typeof createActivityInitialState;
+
+export default function AddActivityButton({ categories }: { categories: Category[] }) {
+  const [state, formAction] = useActionState(createActivity, createActivityInitialState);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    console.log('ok changed', state?.ok, state);
     if (state?.ok) {
       setOpen(false);
     }
-  }, [state?.ok]);
+  }, [state]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -46,34 +40,11 @@ export default function AddActivityButton() {
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-sm">
-        <form action={formAction}>
-          <DialogHeader>
-            <DialogTitle>Acticity Detail</DialogTitle>
-            <DialogDescription>Create new activity</DialogDescription>
-          </DialogHeader>
-          <FormRow>
-            <label htmlFor="title">Activity Name</label>
-            <Input
-              type="text"
-              id="title"
-              name="title"
-              placeholder="eg. Running, Cycling..."
-              required
-            />
-            <ErrorMessage>{state?.data.title}</ErrorMessage>
-          </FormRow>
-          <FormRow>
-            <label htmlFor="description">Description</label>
-            <Input type="text" id="description" name="description" placeholder="eg. 10km/h..." />
-            <ErrorMessage>{state?.data.description}</ErrorMessage>
-          </FormRow>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button color="secondary">Cancel</Button>
-            </DialogClose>
-            <SubmitButton color="primary">Create</SubmitButton>
-          </DialogFooter>
-        </form>
+        <ActivityForm
+          state={state as CreateActivityState}
+          formAction={formAction}
+          categories={categories}
+        />
       </DialogContent>
     </Dialog>
   );

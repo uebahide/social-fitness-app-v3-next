@@ -4,10 +4,10 @@ import { register } from '@/app/(auth)/action';
 import { useActionState } from 'react';
 import { SubmitButton } from './buttons/SubmitButton';
 import Link from 'next/link';
-import { AuthForm } from './authForm/Form';
-import { FormRow } from './authForm/FormRow';
-import { Input } from './authForm/Input';
-import { ErrorMessage } from './authForm/ErrorMessage';
+import { AuthForm } from './form/Form';
+import { FormRow } from './form/FormRow';
+import { Input } from './form/Input';
+import { ErrorMessage } from './form/ErrorMessage';
 
 const initialState = {
   errors: {},
