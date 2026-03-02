@@ -1,12 +1,13 @@
-"use client";
-import { useFormStatus } from "react-dom";
-import { Spinner } from "../ui/spinner";
-import { Button } from "./Button";
-import { buttonColor } from "@/types/buttonType";
-import { cn } from "@/lib/utils";
+'use client';
+
+import { useFormStatus } from 'react-dom';
+import { Spinner } from '../ui/spinner';
+import { Button } from './Button';
+import { buttonColor } from '@/types/buttonType';
+import { cn } from '@/lib/utils';
 
 export const SubmitButton = ({
-  color = "primary",
+  color = 'primary',
   className,
   children,
 }: {
@@ -18,12 +19,7 @@ export const SubmitButton = ({
 
   console.log(pending);
   return (
-    <Button
-      color={color}
-      type="submit"
-      className={cn(className)}
-      disabled={pending}
-    >
+    <Button color={color} type="submit" className={cn(className)} disabled={pending}>
       {pending ? <Spinner /> : children}
     </Button>
   );
