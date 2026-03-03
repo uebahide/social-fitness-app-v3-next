@@ -2,16 +2,23 @@ import React from 'react';
 import Logo from './Logo';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import HomeIcon from './icons/Home';
+import RunIcon from './icons/Run';
 
 export default function Navbar() {
   return (
-    <div className="row-start-1 row-end-3 flex flex-col items-center gap-10 border-r border-gray-200">
+    <div className="row-start-1 row-end-3 flex flex-col items-center gap-10 border-r border-gray-200 px-5">
       <Link href="/" className="mt-6">
         <Logo />
       </Link>
-      <div className="flex flex-col gap-6">
-        <CustomLink href="/">Home</CustomLink>
-        <CustomLink href="/activity">Activity</CustomLink>
+      <div className="flex w-full flex-col gap-2">
+        <CustomLink href="/">
+          <HomeIcon className="h-5 w-5" /> Home
+        </CustomLink>
+        <CustomLink href="/activity">
+          <RunIcon className="h-5 w-5" />
+          Activity
+        </CustomLink>
       </div>
     </div>
   );
@@ -31,7 +38,7 @@ export const CustomLink = ({
       href={href}
       className={cn(
         className,
-        'bg-brand-primary-300 hover:bg-brand-primary-400 rounded-lg px-8 py-2 text-center shadow-sm',
+        'flex items-center justify-start gap-2 rounded-lg py-1 pr-8 pl-3 hover:bg-gray-200 active:bg-gray-200',
       )}
     >
       {children}

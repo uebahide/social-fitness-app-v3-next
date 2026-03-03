@@ -1,10 +1,12 @@
 import ActivityCard from '@/components/ActivityCard';
 import AddActivityButton from '@/components/AddActivityButton';
-import { Input } from '@/components/form/Input';
-import { Button } from '@/components/buttons/Button';
 import { ActivityType } from '@/types/api/activity';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { CategoryIcon } from '@/components/CategoryIcon';
+import { Category } from '@/types/api/category';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { MyActivities } from './MyActivities';
 
 export default async function Activity() {
   const cookiesStore = await cookies();
@@ -60,22 +62,19 @@ export default async function Activity() {
   const activities = activitiesJson.data ?? [];
 
   return (
-    <div className="space-y-6">
-      <div className="flex gap-3">
-        <AddActivityButton categories={categories} />
-        <Input id="search" name="search" placeholder="search" className="bg-white" />
-        <Button color="primary">Filter</Button>
-      </div>
-      <div className="grid grid-cols-[2fr_1fr] gap-5">
-        <div className="space-y-4">
-          {activities?.length > 0 &&
-            activities.map((activity: ActivityType) => {
-              return <ActivityCard activity={activity} key={activity.id} />;
-            })}
-        </div>
+    <section className="grid grid-cols-[2fr_1fr] gap-5 space-y-6">
+      <main className="space-y-6">
+        <header className="flex items-center gap-3">
+          <h2 className="">My Activity</h2>
+          <AddActivityButton categories={categories} />
+        </header>
 
+        <MyActivities activities={activities} categories={categories} />
+      </main>
+
+      <aside className="grid grid-cols-[2fr_1fr] gap-5">
         <div>analytics</div>
-      </div>
-    </div>
+      </aside>
+    </section>
   );
 }
