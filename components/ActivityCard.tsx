@@ -6,7 +6,7 @@ export default function ActivityCard({ activity }: { activity: ActivityType }) {
   const created_user = activity.user;
   const details = activity.details;
   return (
-    <article className="rounded-sm bg-white px-7 py-5 shadow-sm">
+    <article className="bg-card rounded-sm px-7 py-5 shadow-sm">
       <main className="r mb-10 grid grid-cols-[50px_auto] grid-rows-[1fr_auto] space-y-4 gap-x-6">
         <span className="flex justify-center">
           <Avatar user={created_user} />

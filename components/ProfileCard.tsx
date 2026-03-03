@@ -15,7 +15,7 @@ export default function ProfileCard() {
   const { user } = useUser();
 
   return (
-    <div className="w-[700px] space-y-10 bg-white p-10 shadow-sm">
+    <div className="bg-card w-[700px] space-y-10 rounded-sm p-10 shadow-sm">
       <div className="space-y-5">
         <p className="text-2xl">Image</p>
         <ImageForm user={user} />
