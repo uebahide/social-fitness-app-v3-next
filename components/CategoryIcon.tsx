@@ -9,17 +9,81 @@ import { BoxingIcon } from './icons/Boxing';
 import { Category } from '@/types/api/category';
 import { cn } from '@/lib/utils';
 
-export const CategoryIcon = ({ category, className }: { category: string; className?: string }) => {
+export const CategoryIcon = ({
+  category,
+  className,
+  size = 'medium',
+}: {
+  category: string;
+  className?: string;
+  size?: 'small' | 'medium' | 'large';
+}) => {
   return (
     <div className={cn('flex h-10 w-10 items-center justify-center', className)}>
-      {category === 'running' && <RunIcon className="text-amber-600" />}
-      {category === 'cycling' && <CycleIcon className="text-green-600" />}
-      {category === 'swimming' && <SwimIcon className="text-blue-600" />}
-      {category === 'walking' && <WalkIcon className="text-black" />}
-      {category === 'gym' && <BarbellIcon className="text-purple-600" />}
-      {category === 'yoga' && <YogaIcon className="text-pink-600" />}
-      {category === 'hiking' && <TrekkingIcon className="text-cyan-600" />}
-      {category === 'boxing' && <BoxingIcon />}
+      {category === 'running' && (
+        <RunIcon
+          className={cn(
+            'text-amber-600',
+            size === 'small' ? 'h-6 w-6' : size === 'medium' ? 'h-10 w-10' : 'h-12 w-12',
+          )}
+        />
+      )}
+      {category === 'cycling' && (
+        <CycleIcon
+          className={cn(
+            'text-green-600',
+            size === 'small' ? 'h-6 w-6' : size === 'medium' ? 'h-10 w-10' : 'h-12 w-12',
+          )}
+        />
+      )}
+      {category === 'swimming' && (
+        <SwimIcon
+          className={cn(
+            'text-blue-600',
+            size === 'small' ? 'h-6 w-6' : size === 'medium' ? 'h-10 w-10' : 'h-12 w-12',
+          )}
+        />
+      )}
+      {category === 'walking' && (
+        <WalkIcon
+          className={cn(
+            'text-black',
+            size === 'small' ? 'h-6 w-6' : size === 'medium' ? 'h-10 w-10' : 'h-12 w-12',
+          )}
+        />
+      )}
+      {category === 'gym' && (
+        <BarbellIcon
+          className={cn(
+            'text-purple-600',
+            size === 'small' ? 'h-6 w-6' : size === 'medium' ? 'h-10 w-10' : 'h-12 w-12',
+          )}
+        />
+      )}
+      {category === 'yoga' && (
+        <YogaIcon
+          className={cn(
+            'text-pink-600',
+            size === 'small' ? 'h-6 w-6' : size === 'medium' ? 'h-10 w-10' : 'h-12 w-12',
+          )}
+        />
+      )}
+      {category === 'hiking' && (
+        <TrekkingIcon
+          className={cn(
+            'text-cyan-600',
+            size === 'small' ? 'h-6 w-6' : size === 'medium' ? 'h-10 w-10' : 'h-12 w-12',
+          )}
+        />
+      )}
+      {category === 'boxing' && (
+        <BoxingIcon
+          className={cn(
+            'text-orange-600',
+            size === 'small' ? 'h-6 w-6' : size === 'medium' ? 'h-10 w-10' : 'h-12 w-12',
+          )}
+        />
+      )}
     </div>
   );
 };

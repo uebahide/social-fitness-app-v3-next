@@ -58,7 +58,11 @@ function CategoryFilter({
             onClick={() => handleCategoryFilter(category)}
             key={String(category)}
           >
-            <CategoryIcon category={String(category).toLowerCase()} className="cursor-pointer" />
+            <CategoryIcon
+              category={String(category).toLowerCase()}
+              className="cursor-pointer"
+              size="small"
+            />
           </div>
         );
       })}
@@ -81,7 +85,7 @@ function ActivityList({
     : activities;
 
   return (
-    <article className="space-y-4">
+    <article className="space-y-10">
       {filteredActivities?.length > 0 &&
         filteredActivities.map((activity: ActivityType) => {
           return <ActivityCard activity={activity} key={activity.id} />;
