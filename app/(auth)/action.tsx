@@ -97,7 +97,6 @@ export async function login(prevState: any, formData: FormData) {
   const resJson = await res.json();
 
   if (!res.ok) {
-    console.log('response: ', res);
     return {
       error: resJson.error,
       data: { email, password },
@@ -129,8 +128,6 @@ export async function logout(prevState: any, formData: FormData) {
   } catch (e) {
     throw new Error(`Network error while logout : ${String(e)}`);
   }
-
-  console.log(res);
 
   revalidatePath('/', 'layout');
   redirect('/');

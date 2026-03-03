@@ -5,7 +5,6 @@ import { NextResponse, type NextRequest } from 'next/server';
 export async function middleware(request: NextRequest) {
   const cookiesStore = await cookies();
   const token = cookiesStore.get('token')?.value;
-  console.log('token:', token);
 
   if (!token) {
     return NextResponse.redirect(new URL('/login', request.url));
