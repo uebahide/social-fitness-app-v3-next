@@ -57,7 +57,7 @@ export default async function Activity() {
     categoriesRes.json(),
   ]);
 
-  const activities = activitiesJson.data;
+  const activities = activitiesJson.data ?? [];
 
   return (
     <div className="space-y-6">
