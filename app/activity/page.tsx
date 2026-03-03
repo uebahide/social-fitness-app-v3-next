@@ -61,37 +61,38 @@ export default async function Activity() {
   const activities = activitiesJson.data ?? [];
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center gap-3">
-        <p className="">My Activity</p>
-        <AddActivityButton categories={categories} />
-      </div>
-      <div className="flex gap-2">
-        {categories.map((category: Category) => {
-          return (
-            <Tooltip key={String(category)}>
-              <TooltipTrigger asChild>
-                <div className="flex h-8 w-10 cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-gray-100 hover:bg-gray-200">
-                  <CategoryIcon category={String(category).toLowerCase()} />
-                </div>
-              </TooltipTrigger>
-              <TooltipContent side="top">
-                <p>{String(category)}</p>
-              </TooltipContent>
-            </Tooltip>
-          );
-        })}
-      </div>
-      <div className="grid grid-cols-[2fr_1fr] gap-5">
-        <div className="space-y-4">
+    <section className="grid grid-cols-[2fr_1fr] gap-5 space-y-6">
+      <main className="space-y-6">
+        <header className="flex items-center gap-3">
+          <h2 className="">My Activity</h2>
+          <AddActivityButton categories={categories} />
+        </header>
+        <nav className="flex gap-2">
+          {categories.map((category: Category) => {
+            return (
+              <Tooltip key={String(category)}>
+                <TooltipTrigger asChild>
+                  <div className="flex h-8 w-10 cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-gray-100 hover:bg-gray-200">
+                    <CategoryIcon category={String(category).toLowerCase()} />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="top">
+                  <p>{String(category)}</p>
+                </TooltipContent>
+              </Tooltip>
+            );
+          })}
+        </nav>
+        <article className="space-y-4">
           {activities?.length > 0 &&
             activities.map((activity: ActivityType) => {
               return <ActivityCard activity={activity} key={activity.id} />;
             })}
-        </div>
-
+        </article>
+      </main>
+      <aside className="grid grid-cols-[2fr_1fr] gap-5">
         <div>analytics</div>
-      </div>
-    </div>
+      </aside>
+    </section>
   );
 }
