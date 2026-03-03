@@ -1,6 +1,7 @@
 import { ActivityType } from '@/types/api/activity';
 import { Avatar } from './Avatar';
 import { getTimeOfDay, getUnit, uppercaseFirstLetter } from '@/lib/utils';
+import { CategoryIcon } from './CategoryIcon';
 
 export default function ActivityCard({ activity }: { activity: ActivityType }) {
   const created_user = activity.user;
@@ -15,7 +16,9 @@ export default function ActivityCard({ activity }: { activity: ActivityType }) {
           <p className="text-md font-medium">{created_user.name}</p>
           <p className="text-xs text-gray-500">{activity.created_at}</p>
         </header>
-        <div className="flex justify-center">icon</div>
+        <div className="flex justify-center">
+          <CategoryIcon category={activity.category} />
+        </div>
 
         <section className="space-y-2">
           <h2 className="text-2xl font-medium">
@@ -24,10 +27,12 @@ export default function ActivityCard({ activity }: { activity: ActivityType }) {
               : getTimeOfDay(activity.created_at) + ' ' + uppercaseFirstLetter(activity.category)}
           </h2>
           <ul className="flex gap-2">
-            <li className="flex flex-col border-r border-gray-200 pr-3">
+            {/* <li className="flex flex-col border-r border-gray-200 pr-3">
               <span className="text-sm text-gray-500">Category</span>
-              <span className="text-xl font-medium">{uppercaseFirstLetter(activity.category)}</span>
-            </li>
+              <span className="text-xl font-medium">
+                <CategoryTag>{uppercaseFirstLetter(activity.category)}</CategoryTag>
+              </span>
+            </li> */}
             {details &&
               Object.entries(details).map(([key, value]) => (
                 <li className="flex flex-col border-r border-gray-200 px-3" key={key}>
