@@ -6,10 +6,11 @@ import BarbellIcon from './icons/Barbell';
 import { YogaIcon } from './icons/Yoga';
 import { TrekkingIcon } from './icons/Trekking';
 import { BoxingIcon } from './icons/Boxing';
+import { Category } from '@/types/api/category';
 
 export const CategoryIcon = ({ category }: { category: string }) => {
   return (
-    <div className="flex h-10 w-10 items-center justify-center">
+    <button className="flex h-10 w-10 items-center justify-center">
       {category === 'running' && <RunIcon className="text-amber-600" />}
       {category === 'cycling' && <CycleIcon className="text-green-600" />}
       {category === 'swimming' && <SwimIcon className="text-blue-600" />}
@@ -18,6 +19,6 @@ export const CategoryIcon = ({ category }: { category: string }) => {
       {category === 'yoga' && <YogaIcon className="text-pink-600" />}
       {category === 'hiking' && <TrekkingIcon className="text-cyan-600" />}
       {category === 'boxing' && <BoxingIcon />}
-    </div>
+    </button>
   );
 };
