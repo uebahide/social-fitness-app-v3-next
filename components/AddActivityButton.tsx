@@ -35,8 +35,13 @@ export default function AddActivityButton({ categories }: { categories: Category
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button type="button" color="secondary" onClick={() => console.log('open dialog')}>
-          + Add New
+        <Button
+          type="button"
+          color="secondary"
+          onClick={() => console.log('open dialog')}
+          className="h-7 w-fit border border-gray-300 bg-gray-100 shadow-sm hover:border-gray-300 hover:bg-gray-200"
+        >
+          + New
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-sm">

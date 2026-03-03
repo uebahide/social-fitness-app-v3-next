@@ -7,6 +7,7 @@ import Main from '@/components/Main';
 import { cookies } from 'next/headers';
 import { User } from '@/types/api/user';
 import { UserProvider } from '@/contexts/UserProvider';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -49,13 +50,15 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <div className="grid h-screen grid-cols-[200px_4fr] grid-rows-[auto_1fr_auto]">
-          <UserProvider initialUser={user}>
-            <Navbar />
-            <Header />
-            <Main>{children}</Main>
-          </UserProvider>
-        </div>
+        <TooltipProvider>
+          <div className="grid h-screen grid-cols-[190px_4fr] grid-rows-[auto_1fr_auto]">
+            <UserProvider initialUser={user}>
+              <Navbar />
+              <Header />
+              <Main>{children}</Main>
+            </UserProvider>
+          </div>
+        </TooltipProvider>
       </body>
     </html>
   );

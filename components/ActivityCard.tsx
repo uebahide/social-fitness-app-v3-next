@@ -16,9 +16,9 @@ export default function ActivityCard({ activity }: { activity: ActivityType }) {
           <p className="text-md font-medium">{created_user.name}</p>
           <p className="text-xs text-gray-500">{activity.created_at}</p>
         </header>
-        <div className="flex justify-center">
+        <span className="flex justify-center">
           <CategoryIcon category={activity.category} />
-        </div>
+        </span>
 
         <section className="space-y-2">
           <h2 className="text-2xl font-medium">

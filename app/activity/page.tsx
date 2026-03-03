@@ -1,10 +1,11 @@
 import ActivityCard from '@/components/ActivityCard';
 import AddActivityButton from '@/components/AddActivityButton';
-import { Input } from '@/components/form/Input';
-import { Button } from '@/components/buttons/Button';
 import { ActivityType } from '@/types/api/activity';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { CategoryIcon } from '@/components/CategoryIcon';
+import { Category } from '@/types/api/category';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 export default async function Activity() {
   const cookiesStore = await cookies();
@@ -61,10 +62,25 @@ export default async function Activity() {
 
   return (
     <div className="space-y-6">
-      <div className="flex gap-3">
+      <div className="flex items-center gap-3">
+        <p className="">My Activity</p>
         <AddActivityButton categories={categories} />
-        <Input id="search" name="search" placeholder="search" className="bg-white" />
-        <Button color="primary">Filter</Button>
+      </div>
+      <div className="flex gap-2">
+        {categories.map((category: Category) => {
+          return (
+            <Tooltip key={String(category)}>
+              <TooltipTrigger asChild>
+                <div className="flex h-8 w-10 cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-gray-100 hover:bg-gray-200">
+                  <CategoryIcon category={String(category).toLowerCase()} />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent side="top">
+                <p>{String(category)}</p>
+              </TooltipContent>
+            </Tooltip>
+          );
+        })}
       </div>
       <div className="grid grid-cols-[2fr_1fr] gap-5">
         <div className="space-y-4">
