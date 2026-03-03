@@ -50,25 +50,16 @@ function CategoryFilter({
     <nav className="flex gap-2">
       {categories.map((category: Category) => {
         return (
-          <Tooltip key={String(category)}>
-            <TooltipTrigger asChild>
-              <div
-                className={cn(
-                  'flex h-8 w-10 cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-gray-100 hover:bg-gray-200 hover:shadow-md',
-                  String(categoryFilter) === String(category) ? 'bg-gray-200 shadow-md' : '',
-                )}
-                onClick={() => handleCategoryFilter(category)}
-              >
-                <CategoryIcon
-                  category={String(category).toLowerCase()}
-                  className="cursor-pointer"
-                />
-              </div>
-            </TooltipTrigger>
-            <TooltipContent side="top">
-              <p>{String(category)}</p>
-            </TooltipContent>
-          </Tooltip>
+          <div
+            className={cn(
+              'flex h-8 w-10 cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-gray-100 hover:bg-gray-200 hover:shadow-md',
+              String(categoryFilter) === String(category) ? 'bg-gray-200 shadow-md' : '',
+            )}
+            onClick={() => handleCategoryFilter(category)}
+            key={String(category)}
+          >
+            <CategoryIcon category={String(category).toLowerCase()} className="cursor-pointer" />
+          </div>
         );
       })}
     </nav>
