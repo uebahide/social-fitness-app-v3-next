@@ -1,12 +1,9 @@
-import ActivityCard from '@/components/ActivityCard';
 import AddActivityButton from '@/components/AddActivityButton';
-import { ActivityType } from '@/types/api/activity';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { CategoryIcon } from '@/components/CategoryIcon';
-import { Category } from '@/types/api/category';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { MyActivities } from './MyActivities';
+import { MyAnalytics } from './MyAnalytics';
+import { Suspense } from 'react';
 
 export default async function Activity() {
   const cookiesStore = await cookies();
@@ -62,7 +59,7 @@ export default async function Activity() {
   const activities = activitiesJson.data ?? [];
 
   return (
-    <section className="grid grid-cols-[2fr_1fr] gap-5 space-y-6">
+    <section className="grid grid-cols-[10fr_6fr] space-y-6 gap-x-10">
       <main className="space-y-6">
         <header className="flex items-center gap-3">
           <h2 className="">My Activity</h2>
@@ -72,8 +69,10 @@ export default async function Activity() {
         <MyActivities activities={activities} categories={categories} />
       </main>
 
-      <aside className="grid grid-cols-[2fr_1fr] gap-5">
-        <div>analytics</div>
+      <aside>
+        <Suspense fallback={<div>Loading...</div>}>
+          <MyAnalytics token={token} />
+        </Suspense>
       </aside>
     </section>
   );

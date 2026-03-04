@@ -16,7 +16,6 @@ export const MyActivities = ({
   activities: ActivityType[];
 }) => {
   const [categoryFilter, setCategoryFilter] = useState<Category | null>(null);
-  console.log(categoryFilter);
   return (
     <div className="space-y-6">
       <CategoryFilter
@@ -85,7 +84,7 @@ function ActivityList({
     : activities;
 
   return (
-    <article className="space-y-10">
+    <article className="space-y-3">
       {filteredActivities?.length > 0 &&
         filteredActivities.map((activity: ActivityType) => {
           return <ActivityCard activity={activity} key={activity.id} />;

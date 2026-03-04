@@ -36,3 +36,26 @@ export function getTimeOfDay(isoString: string): 'Morning' | 'Afternoon' | 'Even
 
   return 'Evening';
 }
+
+export function getCategoryColor(category: string): string {
+  switch (category.toLowerCase()) {
+    case 'running':
+      return '#D97706'; // amber-600
+    case 'cycling':
+      return '#16A34A'; // green-600
+    case 'swimming':
+      return '#2563EB'; // blue-600
+    case 'walking':
+      return '#9333EA'; // purple-600
+    case 'gym':
+      return '#DC2626 '; // orange-600
+    case 'yoga':
+      return '#DB2777'; // pink-600
+    case 'hiking':
+      return '#0891B2'; // cyan-600
+    case 'boxing':
+      return '#000000'; // black
+    default:
+      return '#6B7280'; // gray-500 fallback
+  }
+}
