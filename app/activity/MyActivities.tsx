@@ -7,6 +7,7 @@ import { Category } from '@/types/api/category';
 import ActivityCard from '@/components/ActivityCard';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/buttons/Button';
 
 export const MyActivities = ({
   categories,
@@ -49,9 +50,10 @@ function CategoryFilter({
     <nav className="flex gap-2">
       {categories.map((category: Category) => {
         return (
-          <div
+          <Button
+            color="secondary"
             className={cn(
-              'flex h-8 w-10 cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-gray-100 hover:bg-gray-200 hover:shadow-md',
+              'h-8 w-10',
               String(categoryFilter) === String(category) ? 'bg-gray-200 shadow-md' : '',
             )}
             onClick={() => handleCategoryFilter(category)}
@@ -62,7 +64,7 @@ function CategoryFilter({
               className="cursor-pointer"
               size="small"
             />
-          </div>
+          </Button>
         );
       })}
     </nav>

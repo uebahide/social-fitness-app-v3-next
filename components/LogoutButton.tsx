@@ -8,7 +8,7 @@ export const LogoutButton = () => {
   const [state, formAction] = useActionState(logout, null);
   return (
     <form action={formAction}>
-      <Button color="secondary" type="submit" className="w-fit rounded-lg text-white">
+      <Button color="secondary" type="submit" className="w-fit rounded-lg">
         logout
       </Button>
     </form>
