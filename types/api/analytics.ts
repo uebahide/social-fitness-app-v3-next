@@ -1,8 +1,8 @@
 export type dashboard = {
-  last7DaysActivityTotal: CategoryActivityTotal[];
-  last30DaysActivityTotal: CategoryActivityTotal[];
-  last60DaysActivityTotal: CategoryActivityTotal[];
-  last90DaysActivityTotal: CategoryActivityTotal[];
+  last7DaysActivityTotal: number;
+  last30DaysActivityTotal: number;
+  last60DaysActivityTotal: number;
+  last90DaysActivityTotal: number;
   last7DaysCategoryActivityTotal: CategoryActivityTotal[];
   last30DaysCategoryActivityTotal: CategoryActivityTotal[];
   last60DaysCategoryActivityTotal: CategoryActivityTotal[];

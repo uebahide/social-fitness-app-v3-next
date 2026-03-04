@@ -2,18 +2,25 @@
 
 import { CategoryBreakDownChart } from './CategoryBreakDownChart';
 import { useState } from 'react';
-import { cn } from '@/lib/utils';
 import { dailyDistanceAndDurationValues, CategoryActivityTotal } from '@/types/api/analytics';
 
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { TrendLineChart } from './TrendLineChart';
 
 export const MyAnalyticsClient = ({
+  last7DaysActivityTotal,
+  last30DaysActivityTotal,
+  last60DaysActivityTotal,
+  last90DaysActivityTotal,
   last7DaysCategoryActivityTotal,
   last30DaysCategoryActivityTotal,
   last60DaysCategoryActivityTotal,
   last90DaysCategoryActivityTotal,
   dailyDistanceAndDurationValues,
 }: {
+  last7DaysActivityTotal: number;
+  last30DaysActivityTotal: number;
+  last60DaysActivityTotal: number;
+  last90DaysActivityTotal: number;
   last7DaysCategoryActivityTotal: CategoryActivityTotal[];
   last30DaysCategoryActivityTotal: CategoryActivityTotal[];
   last60DaysCategoryActivityTotal: CategoryActivityTotal[];
@@ -29,11 +36,20 @@ export const MyAnalyticsClient = ({
         : days === 60
           ? last60DaysCategoryActivityTotal
           : last90DaysCategoryActivityTotal;
+  const totalActivityCount =
+    days === 7
+      ? last7DaysActivityTotal
+      : days === 30
+        ? last30DaysActivityTotal
+        : days === 60
+          ? last60DaysActivityTotal
+          : last90DaysActivityTotal;
 
   const trendData = dailyDistanceAndDurationValues.slice(0, days).map((item) => ({
     name: item.date,
     distance: item.distance,
   }));
+  const totalDistance = trendData.reduce((acc, curr) => acc + Number(curr.distance), 0);
 
   return (
     <div className="bg-card h-auto space-y-10 rounded-lg border border-gray-300 px-7 py-4 shadow-sm focus-within:outline-none">
@@ -51,28 +67,15 @@ export const MyAnalyticsClient = ({
 
       <ul className="flex flex-col gap-4">
         <li>
-          <LineChart width={400} height={250} data={trendData} className="">
-            <CartesianGrid strokeDasharray="3 3" />
-
-            <XAxis dataKey="name" />
-            <YAxis />
-
-            <Tooltip />
-            <Legend />
-
-            <Line type="monotone" dataKey="distance" stroke="#8884d8" strokeWidth={2} />
-          </LineChart>
+          <TrendLineChart trendData={trendData} />
         </li>
 
         <li>
           <CategoryBreakDownChart data={categoryBreakDownData} />
         </li>
-
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
+        <hr />
+        <li>Activity count: {totalActivityCount}</li>
+        <li>Total distance: {totalDistance.toFixed(2)} km</li>
       </ul>
     </div>
   );
