@@ -1,7 +1,22 @@
 export type dashboard = {
-  monthly_activity_total: number;
-  weekly_activity_total: number;
-  monthly_category_activity_total: { category: string; total: number }[];
-  weekly_category_activity_total: { category: string; total: number }[];
-  daily_distance_and_duration_values: [string, number, number][];
+  last7DaysActivityTotal: CategoryActivityTotal[];
+  last30DaysActivityTotal: CategoryActivityTotal[];
+  last60DaysActivityTotal: CategoryActivityTotal[];
+  last90DaysActivityTotal: CategoryActivityTotal[];
+  last7DaysCategoryActivityTotal: CategoryActivityTotal[];
+  last30DaysCategoryActivityTotal: CategoryActivityTotal[];
+  last60DaysCategoryActivityTotal: CategoryActivityTotal[];
+  last90DaysCategoryActivityTotal: CategoryActivityTotal[];
+  dailyDistanceAndDurationValues: dailyDistanceAndDurationValues[];
+};
+
+export type CategoryActivityTotal = {
+  category: string;
+  total: number;
+};
+
+export type dailyDistanceAndDurationValues = {
+  date: string;
+  distance: number;
+  duration: number;
 };

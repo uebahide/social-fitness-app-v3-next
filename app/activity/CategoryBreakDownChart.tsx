@@ -2,12 +2,10 @@
 
 import { getCategoryColor } from '@/lib/utils';
 import { PieChart, Pie, Tooltip, Legend } from 'recharts';
+import { CategoryActivityTotal } from '@/types/api/analytics';
 
-export const CategoryBreakDownChart = ({
-  data,
-}: {
-  data: { category: string; total: number }[];
-}) => {
+export const CategoryBreakDownChart = ({ data }: { data: CategoryActivityTotal[] }) => {
+  console.log('data', data);
   const dataWithColors = data.map((entry, index) => ({
     ...entry,
     fill: getCategoryColor(entry.category),

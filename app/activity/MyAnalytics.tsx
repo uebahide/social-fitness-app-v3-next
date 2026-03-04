@@ -5,13 +5,19 @@ import { MyAnalyticsClient } from './MyAnalyticsClient';
 export const MyAnalytics = async ({ token }: { token: string }) => {
   const analyticsDashboardData: dashboard = await getAnalyticsDashboard(token);
 
-  const monthlyCategoryActivityTotal = analyticsDashboardData?.monthly_category_activity_total;
-  const weeklyCategoryActivityTotal = analyticsDashboardData?.weekly_category_activity_total;
+  const last7DaysCategoryActivityTotal = analyticsDashboardData?.last7DaysCategoryActivityTotal;
+  const last30DaysCategoryActivityTotal = analyticsDashboardData?.last30DaysCategoryActivityTotal;
+  const last60DaysCategoryActivityTotal = analyticsDashboardData?.last60DaysCategoryActivityTotal;
+  const last90DaysCategoryActivityTotal = analyticsDashboardData?.last90DaysCategoryActivityTotal;
+  const dailyDistanceAndDurationValues = analyticsDashboardData?.dailyDistanceAndDurationValues;
 
   return (
     <MyAnalyticsClient
-      monthlyCategoryActivityTotal={monthlyCategoryActivityTotal}
-      weeklyCategoryActivityTotal={weeklyCategoryActivityTotal}
+      last7DaysCategoryActivityTotal={last7DaysCategoryActivityTotal}
+      last30DaysCategoryActivityTotal={last30DaysCategoryActivityTotal}
+      last60DaysCategoryActivityTotal={last60DaysCategoryActivityTotal}
+      last90DaysCategoryActivityTotal={last90DaysCategoryActivityTotal}
+      dailyDistanceAndDurationValues={dailyDistanceAndDurationValues}
     />
   );
 };
