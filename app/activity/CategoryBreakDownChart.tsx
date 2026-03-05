@@ -12,7 +12,7 @@ export const CategoryBreakDownChart = ({ data }: { data: CategoryActivityTotal[]
   }));
 
   return (
-    <PieChart width={400} height={330}>
+    <PieChart width={400} height={300}>
       <Pie
         data={dataWithColors}
         dataKey="total"

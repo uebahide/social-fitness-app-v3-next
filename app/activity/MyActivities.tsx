@@ -24,7 +24,9 @@ export const MyActivities = ({
         setCategoryFilter={setCategoryFilter}
         categoryFilter={categoryFilter}
       />
-      <ActivityList activities={activities} categoryFilter={categoryFilter} />
+      <div className="max-h-[620px] overflow-y-auto pr-10">
+        <ActivityList activities={activities} categoryFilter={categoryFilter} />
+      </div>
     </div>
   );
 };
@@ -86,11 +88,11 @@ function ActivityList({
     : activities;
 
   return (
-    <article className="space-y-3">
+    <div className="space-y-4">
       {filteredActivities?.length > 0 &&
         filteredActivities.map((activity: ActivityType) => {
           return <ActivityCard activity={activity} key={activity.id} />;
         })}
-    </article>
+    </div>
   );
 }

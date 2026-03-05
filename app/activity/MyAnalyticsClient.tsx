@@ -52,7 +52,7 @@ export const MyAnalyticsClient = ({
   const totalDistance = trendData.reduce((acc, curr) => acc + Number(curr.distance), 0);
 
   return (
-    <div className="bg-card h-auto space-y-10 rounded-lg border border-gray-300 px-7 py-4 shadow-sm focus-within:outline-none">
+    <div className="bg-card h-auto space-y-8 rounded-lg border border-gray-300 px-7 py-4 shadow-sm focus-within:outline-none">
       <nav className="flex justify-end gap-2">
         <select
           className="bg-card rounded-lg border border-gray-300 px-2 py-1"
