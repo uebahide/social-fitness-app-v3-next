@@ -5,6 +5,7 @@ export const TrendLineChart = ({
 }: {
   trendData: { name: string; distance: number }[];
 }) => {
+  console.log('trendData', trendData);
   return (
     <LineChart width={400} height={230} data={trendData} className="">
       <CartesianGrid strokeDasharray="3 3" />

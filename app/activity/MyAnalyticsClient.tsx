@@ -45,10 +45,12 @@ export const MyAnalyticsClient = ({
           ? last60DaysActivityTotal
           : last90DaysActivityTotal;
 
-  const trendData = dailyDistanceAndDurationValues.slice(0, days).map((item) => ({
-    name: item.date,
-    distance: item.distance,
-  }));
+  const trendData = dailyDistanceAndDurationValues
+    .slice(dailyDistanceAndDurationValues.length - days, dailyDistanceAndDurationValues.length)
+    .map((item) => ({
+      name: item.date,
+      distance: item.distance,
+    }));
   const totalDistance = trendData.reduce((acc, curr) => acc + Number(curr.distance), 0);
 
   return (
