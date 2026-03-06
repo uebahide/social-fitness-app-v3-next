@@ -90,7 +90,7 @@ export default async function Activity({ searchParams }: PageProps) {
   const totalPages = Math.ceil(countJson.count / PER_PAGE);
 
   return (
-    <section className="grid grid-cols-[10fr_6fr] space-y-6 gap-x-10">
+    <section className="grid grid-cols-[9fr_6fr] space-y-6 gap-x-10">
       <main className="space-y-6">
         <header className="flex items-center gap-3">
           <h2 className="">My Activity</h2>
@@ -98,7 +98,7 @@ export default async function Activity({ searchParams }: PageProps) {
         </header>
 
         <MyActivities activities={activities} categories={categories} />
-        <PaginationSimple page={page} totalPages={totalPages} className="pr-10" />
+        <PaginationSimple page={page} totalPages={totalPages} />
       </main>
 
       <aside>

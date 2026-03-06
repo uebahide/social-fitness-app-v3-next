@@ -23,7 +23,7 @@ export const MyActivities = ({
         setCategoryFilter={setCategoryFilter}
         categoryFilter={categoryFilter}
       />
-      <div className="max-h-[520px] overflow-y-auto pr-10">
+      <div className="max-h-[520px] overflow-y-auto">
         <ActivityList activities={activities} categoryFilter={categoryFilter} />
       </div>
     </div>
