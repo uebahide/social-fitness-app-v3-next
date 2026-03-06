@@ -98,7 +98,7 @@ export default async function Activity({ searchParams }: PageProps) {
         </header>
 
         <MyActivities activities={activities} categories={categories} />
-        <PaginationSimple page={page} totalPages={totalPages} />
+        <PaginationSimple page={page} totalPages={totalPages} className="pr-10" />
       </main>
 
       <aside>

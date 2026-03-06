@@ -9,18 +9,26 @@ import {
 } from '@/components/ui/pagination';
 import { PER_PAGE } from '@/constants/initialStates';
 
-export function PaginationSimple({ page, totalPages }: { page: number; totalPages: number }) {
+export function PaginationSimple({
+  page,
+  totalPages,
+  className,
+}: {
+  page: number;
+  totalPages: number;
+  className?: string;
+}) {
   return (
-    <Pagination>
+    <Pagination className={className}>
       <PaginationContent>
         {page > 1 && (
           <PaginationItem>
-            <PaginationPrevious href={`/activity?page=${page - 1}&per_page=${PER_PAGE}`} />
+            <PaginationPrevious href={`/activity?page=${page - 1}`} />
           </PaginationItem>
         )}
         {page > 3 && (
           <PaginationItem>
-            <PaginationLink href={`/activity?page=1&per_page=${PER_PAGE}`}>1</PaginationLink>
+            <PaginationLink href={'/activity?page=1'}>1</PaginationLink>
           </PaginationItem>
         )}
         {page > 4 && (
@@ -31,10 +39,7 @@ export function PaginationSimple({ page, totalPages }: { page: number; totalPage
         {Array.from({ length: totalPages }).map((_, index) =>
           -3 < page - (index + 1) && page - (index + 1) < 3 ? (
             <PaginationItem key={index}>
-              <PaginationLink
-                href={`/activity?page=${index + 1}&per_page=${PER_PAGE}`}
-                isActive={page === index + 1}
-              >
+              <PaginationLink href={`/activity?page=${index + 1}`} isActive={page === index + 1}>
                 {index + 1}
               </PaginationLink>
             </PaginationItem>
@@ -47,14 +52,12 @@ export function PaginationSimple({ page, totalPages }: { page: number; totalPage
         )}
         {page + 2 < totalPages && (
           <PaginationItem>
-            <PaginationLink href={`/activity?page=${totalPages}&per_page=${PER_PAGE}`}>
-              {totalPages}
-            </PaginationLink>
+            <PaginationLink href={`/activity?page=${totalPages}`}>{totalPages}</PaginationLink>
           </PaginationItem>
         )}
         {page < totalPages && (
           <PaginationItem>
-            <PaginationNext href={`/activity?page=${page + 1}&per_page=${PER_PAGE}`} />
+            <PaginationNext href={`/activity?page=${page + 1}`} />
           </PaginationItem>
         )}
       </PaginationContent>

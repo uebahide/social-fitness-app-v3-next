@@ -1,6 +1,5 @@
 'use client';
 
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { CategoryIcon } from '@/components/CategoryIcon';
 import { ActivityType } from '@/types/api/activity';
 import { Category } from '@/types/api/category';
@@ -24,7 +23,7 @@ export const MyActivities = ({
         setCategoryFilter={setCategoryFilter}
         categoryFilter={categoryFilter}
       />
-      <div className="max-h-[620px] overflow-y-auto pr-10">
+      <div className="max-h-[520px] overflow-y-auto pr-10">
         <ActivityList activities={activities} categoryFilter={categoryFilter} />
       </div>
     </div>

@@ -65,7 +65,7 @@ export const MyAnalyticsClient = ({
         </select>
       </nav>
 
-      <ul className="flex flex-col gap-4">
+      <ul className="flex flex-col gap-2">
         <li>
           <TrendLineChart trendData={trendData} />
         </li>
