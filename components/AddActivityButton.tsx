@@ -38,7 +38,7 @@ export default function AddActivityButton({ categories }: { categories: Category
           + New
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-sm">
+      <DialogContent>
         <ActivityForm
           state={state as CreateActivityState}
           formAction={formAction}

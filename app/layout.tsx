@@ -51,7 +51,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <TooltipProvider>
-          <div className="grid h-screen grid-cols-[190px_4fr] grid-rows-[auto_1fr_auto]">
+          <div className="grid h-screen grid-cols-[220px_4fr] grid-rows-[auto_1fr_auto]">
             <UserProvider initialUser={user}>
               <Navbar />
               <Header />

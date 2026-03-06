@@ -20,16 +20,16 @@ export const Input = ({
 }) => {
   return (
     <input
-      defaultValue={defaultValue}
       type={type}
-      id={id}
-      name={name}
       placeholder={placeholder}
       className={cn(
-        'h-8 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-300 focus:outline-none',
+        'h-11 w-full rounded-sm border border-neutral-200 bg-white px-3 pr-12 text-sm text-neutral-900 transition outline-none placeholder:text-neutral-400 focus:border-neutral-400 focus:ring-4 focus:ring-neutral-100',
         className,
       )}
       required={required}
+      defaultValue={defaultValue}
+      id={id}
+      name={name}
     />
   );
 };

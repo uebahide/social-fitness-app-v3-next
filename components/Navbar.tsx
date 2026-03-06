@@ -11,13 +11,13 @@ export default function Navbar() {
       <Link href="/" className="mt-6">
         <Logo />
       </Link>
-      <div className="flex w-full flex-col gap-2">
+      <div className="flex w-full flex-col gap-3">
         <CustomLink href="/">
           <HomeIcon className="h-5 w-5" /> Home
         </CustomLink>
         <CustomLink href="/activity">
           <RunIcon className="h-5 w-5" />
-          Activity
+          My Activity
         </CustomLink>
       </div>
     </div>
