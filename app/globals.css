@@ -21,17 +21,19 @@
   --color-brand-primary-800: oklch(42% 0.2 266);
   --color-brand-primary-900: oklch(36% 0.15 267);
 
-  /* brand secondary (purple) */
-  --color-brand-primary-50: oklch(0.97 0.02 328.5);
-  --color-brand-primary-100: oklch(0.94 0.035 328.5);
-  --color-brand-primary-200: oklch(0.89 0.055 328.5);
-  --color-brand-primary-300: oklch(0.82 0.085 328.5);
-  --color-brand-primary-400: oklch(0.73 0.12 328.5);
-  --color-brand-primary-500: oklch(0.625 0.153 328.5); /* ←基準（#B862B5付近） */
-  --color-brand-primary-600: oklch(0.56 0.16 328.5);
-  --color-brand-primary-700: oklch(0.49 0.15 328.5);
-  --color-brand-primary-800: oklch(0.42 0.125 328.5);
-  --color-brand-primary-900: oklch(0.36 0.095 328.5);
+  /* brand primary (tailwind gray scale) */
+
+  --color-brand-secondary-50: oklch(98.5% 0.002 247.839);
+  --color-brand-secondary-100: oklch(96.7% 0.003 264.542);
+  --color-brand-secondary-200: oklch(92.8% 0.006 264.531);
+  --color-brand-secondary-300: oklch(87.2% 0.01 258.338);
+  --color-brand-secondary-400: oklch(70.7% 0.022 261.325);
+  --color-brand-secondary-500: oklch(55.1% 0.027 264.364);
+  --color-brand-secondary-600: oklch(44.6% 0.03 256.802);
+  --color-brand-secondary-700: oklch(37.3% 0.034 259.733);
+  --color-brand-secondary-800: oklch(27.8% 0.033 256.848);
+  --color-brand-secondary-900: oklch(21% 0.034 264.665);
+  --color-brand-secondary-950: oklch(13% 0.028 261.692);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);

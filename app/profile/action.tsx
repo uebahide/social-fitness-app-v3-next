@@ -28,8 +28,6 @@ export async function updateImage(prevState: any, formData: FormData) {
     throw new Error(`${resJson.error}: ${res.status}, ${res.statusText}`);
   }
 
-  console.log(resJson);
-
   revalidatePath('/profile', 'layout');
   redirect('/profile');
 }

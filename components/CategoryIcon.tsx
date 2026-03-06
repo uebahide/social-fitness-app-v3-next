@@ -6,7 +6,6 @@ import BarbellIcon from './icons/Barbell';
 import { YogaIcon } from './icons/Yoga';
 import { TrekkingIcon } from './icons/Trekking';
 import { BoxingIcon } from './icons/Boxing';
-import { Category } from '@/types/api/category';
 import { cn } from '@/lib/utils';
 
 export const CategoryIcon = ({
@@ -47,7 +46,7 @@ export const CategoryIcon = ({
       {category === 'walking' && (
         <WalkIcon
           className={cn(
-            'text-black',
+            'text-purple-600',
             size === 'small' ? 'h-6 w-6' : size === 'medium' ? 'h-10 w-10' : 'h-12 w-12',
           )}
         />
@@ -55,7 +54,7 @@ export const CategoryIcon = ({
       {category === 'gym' && (
         <BarbellIcon
           className={cn(
-            'text-purple-600',
+            'text-orange-600',
             size === 'small' ? 'h-6 w-6' : size === 'medium' ? 'h-10 w-10' : 'h-12 w-12',
           )}
         />
@@ -79,7 +78,7 @@ export const CategoryIcon = ({
       {category === 'boxing' && (
         <BoxingIcon
           className={cn(
-            'text-orange-600',
+            'text-black',
             size === 'small' ? 'h-6 w-6' : size === 'medium' ? 'h-10 w-10' : 'h-12 w-12',
           )}
         />

@@ -22,10 +22,10 @@ export const Button = ({
       type={type}
       className={cn(
         color == 'primary' &&
-          'bg-brand-primary-300 hover:bg-brand-primary-400 disabled:bg-brand-primary-300',
+          'bg-brand-primary-400 hover:bg-brand-primary-500 disabled:bg-brand-primary-300',
         color == 'secondary' &&
-          'bg-brand-secondary-300 hover:bg-brand-secondary-400 disabled:bg-brand-secondary-300',
-        'flex w-30 cursor-pointer items-center justify-center rounded-lg border border-gray-300 px-2 py-1 hover:shadow-md disabled:cursor-not-allowed',
+          'bg-brand-secondary-100 hover:bg-brand-secondary-200 disabled:bg-brand-secondary-100',
+        'flex w-fit cursor-pointer items-center justify-center rounded-lg border border-gray-300 px-2 py-1 hover:shadow-md disabled:cursor-not-allowed',
         className,
       )}
       onClick={onClick}

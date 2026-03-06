@@ -26,7 +26,6 @@ export default function AddActivityButton({ categories }: { categories: Category
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    console.log('ok changed', state?.ok, state);
     if (state?.ok) {
       setOpen(false);
     }
@@ -35,12 +34,7 @@ export default function AddActivityButton({ categories }: { categories: Category
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          type="button"
-          color="secondary"
-          onClick={() => console.log('open dialog')}
-          className="h-7 w-fit border border-gray-300 bg-gray-100 shadow-sm hover:border-gray-300 hover:bg-gray-200"
-        >
+        <Button type="button" color="secondary">
           + New
         </Button>
       </DialogTrigger>

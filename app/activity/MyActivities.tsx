@@ -1,12 +1,12 @@
 'use client';
 
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { CategoryIcon } from '@/components/CategoryIcon';
 import { ActivityType } from '@/types/api/activity';
 import { Category } from '@/types/api/category';
 import ActivityCard from '@/components/ActivityCard';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/buttons/Button';
 
 export const MyActivities = ({
   categories,
@@ -16,7 +16,6 @@ export const MyActivities = ({
   activities: ActivityType[];
 }) => {
   const [categoryFilter, setCategoryFilter] = useState<Category | null>(null);
-  console.log(categoryFilter);
   return (
     <div className="space-y-6">
       <CategoryFilter
@@ -24,7 +23,9 @@ export const MyActivities = ({
         setCategoryFilter={setCategoryFilter}
         categoryFilter={categoryFilter}
       />
-      <ActivityList activities={activities} categoryFilter={categoryFilter} />
+      <div className="max-h-[520px] overflow-y-auto">
+        <ActivityList activities={activities} categoryFilter={categoryFilter} />
+      </div>
     </div>
   );
 };
@@ -50,9 +51,10 @@ function CategoryFilter({
     <nav className="flex gap-2">
       {categories.map((category: Category) => {
         return (
-          <div
+          <Button
+            color="secondary"
             className={cn(
-              'flex h-8 w-10 cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-gray-100 hover:bg-gray-200 hover:shadow-md',
+              'h-8 w-10',
               String(categoryFilter) === String(category) ? 'bg-gray-200 shadow-md' : '',
             )}
             onClick={() => handleCategoryFilter(category)}
@@ -63,7 +65,7 @@ function CategoryFilter({
               className="cursor-pointer"
               size="small"
             />
-          </div>
+          </Button>
         );
       })}
     </nav>
@@ -85,11 +87,11 @@ function ActivityList({
     : activities;
 
   return (
-    <article className="space-y-10">
+    <div className="space-y-4">
       {filteredActivities?.length > 0 &&
         filteredActivities.map((activity: ActivityType) => {
           return <ActivityCard activity={activity} key={activity.id} />;
         })}
-    </article>
+    </div>
   );
 }
