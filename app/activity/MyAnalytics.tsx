@@ -15,7 +15,6 @@ export const MyAnalytics = async ({ token }: { token: string }) => {
   const last90DaysCategoryActivityTotal = analyticsDashboardData?.last90DaysCategoryActivityTotal;
   const dailyDistanceAndDurationValues = analyticsDashboardData?.dailyDistanceAndDurationValues;
 
-  console.log('dailyDistanceAndDurationValues: ', dailyDistanceAndDurationValues);
   return (
     <MyAnalyticsClient
       last7DaysActivityTotal={last7DaysActivityTotal}

@@ -9,13 +9,14 @@ import {
 } from './ui/dialog';
 import { ErrorMessage } from './form/ErrorMessage';
 import { FormRow } from './form/FormRow';
-
 import { Input } from './form/Input';
 import { CreateActivityState } from '@/types/api/activity';
 import { Button } from './buttons/Button';
 import { SubmitButton } from './buttons/SubmitButton';
 import { Category } from '@/types/api/category';
 import { useRef, useState } from 'react';
+import { SelectSimple } from './form/SelectSimple';
+import { ChevronDownIcon } from 'lucide-react';
 export const ActivityForm = ({
   state,
   formAction,
@@ -38,29 +39,42 @@ export const ActivityForm = ({
         }
       }}
     >
-      <DialogHeader>
-        <DialogTitle>Acticity Detail</DialogTitle>
-        <DialogDescription>Create new activity</DialogDescription>
+      <DialogHeader className="flex flex-row items-center gap-2">
+        <DialogTitle>My Acticity</DialogTitle>
+        <ChevronDownIcon className="size-4 rotate-270 text-black" />
+        <DialogDescription className="text-black">New activity</DialogDescription>
       </DialogHeader>
 
-      <CategoryAndDetailsFields categories={categories} state={state} />
-
       <FormRow>
-        <label htmlFor="title">Title (optional)</label>
-        <Input type="text" id="title" name="title" placeholder="" />
+        <input
+          type="text"
+          id="title"
+          name="title"
+          placeholder="Title"
+          className="font-bold focus:outline-none"
+        />
         <ErrorMessage>{state?.errors.title}</ErrorMessage>
       </FormRow>
 
       <FormRow>
-        <label htmlFor="description">Description (optional)</label>
-        <Input type="text" id="description" name="description" placeholder="" />
+        <input
+          type="text"
+          id="description"
+          name="description"
+          placeholder="Add description..."
+          className="focus:outline-none"
+        />
         <ErrorMessage>{state?.data.description}</ErrorMessage>
         <ErrorMessage>{state?.errors.description}</ErrorMessage>
       </FormRow>
 
+      <CategoryAndDetailsFields categories={categories} state={state} />
+
+      <hr />
+
       <DialogFooter>
         <DialogClose asChild>
-          <Button color="secondary">Cancel</Button>
+          <Button color="transparent">Cancel</Button>
         </DialogClose>
         <SubmitButton color="primary">Create</SubmitButton>
       </DialogFooter>
@@ -77,101 +91,99 @@ const CategoryAndDetailsFields = ({
 }) => {
   const [category, setCategory] = useState<Category>('Running' as unknown as Category);
 
-  const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleCategoryChange = (value: string) => {
     setCategory(
-      categories.find((c: Category) => String(c) === event.target.value) ||
-        ('Running' as unknown as Category),
+      categories.find((c: Category) => String(c) === value) || ('Running' as unknown as Category),
     );
   };
 
   return (
     <>
-      <FormRow>
-        <label htmlFor="category">Category</label>
-        <select
-          id="category"
-          name="category"
-          value={category ? String(category) : 'Running'}
-          onChange={handleCategoryChange}
-          className="h-8 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-300 focus:outline-none"
-        >
-          {categories.map((category: Category) => (
-            <option key={String(category)} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-      </FormRow>
-
-      {String(category) === 'Running' && (
-        <>
-          <FormRow>
-            <label htmlFor="distance">Distance (km)</label>
-            <Input type="number" id="distance" name="distance" placeholder="Distance" />
-          </FormRow>
-          <FormRow>
-            <label htmlFor="duration">Duration (minutes)</label>
-            <Input type="number" id="duration" name="duration" placeholder="Duration" />
-          </FormRow>
-        </>
-      )}
-      {String(category) === 'Walking' && (
-        <>
-          <FormRow>
-            <label htmlFor="distance">Distance (km)</label>
-            <Input type="number" id="distance" name="distance" placeholder="Distance" />
-          </FormRow>
-          <FormRow>
-            <label htmlFor="duration">Duration (minutes)</label>
-            <Input type="number" id="duration" name="duration" placeholder="Duration" />
-          </FormRow>
-        </>
-      )}
-      {String(category) === 'Cycling' && (
-        <>
-          <FormRow>
-            <label htmlFor="distance">Distance (km)</label>
-            <Input type="number" id="distance" name="distance" placeholder="Distance" />
-          </FormRow>
-          <FormRow>
-            <label htmlFor="duration">Duration (minutes)</label>
-            <Input type="number" id="duration" name="duration" placeholder="Duration" />
-          </FormRow>
-        </>
-      )}
-      {String(category) === 'Swimming' && (
-        <>
-          <FormRow>
-            <label htmlFor="distance">Distance (km)</label>
-            <Input type="number" id="distance" name="distance" placeholder="Distance" />
-          </FormRow>
-          <FormRow>
-            <label htmlFor="duration">Duration (minutes)</label>
-            <Input type="number" id="duration" name="duration" placeholder="Duration" />
-          </FormRow>
-        </>
-      )}
-      {String(category) === 'Hiking' && (
-        <>
-          <FormRow>
-            <label htmlFor="distance">Distance (km)</label>
-            <Input type="number" id="distance" name="distance" placeholder="Distance" />
-          </FormRow>
-          <FormRow>
-            <label htmlFor="duration">Duration (minutes) </label>
-            <Input type="number" id="duration" name="duration" placeholder="Duration" />
-          </FormRow>
-          <FormRow>
-            <label htmlFor="location">Location (optional)</label>
-            <Input
-              type="text"
-              id="location"
-              name="location"
-              placeholder="eg. The Peak, Hong Kong"
-            />
-          </FormRow>
-        </>
-      )}
+      <InputFields category={category} />
+      <SelectSimple
+        items={categories.map((c: Category) => ({ value: String(c), label: String(c) }))}
+        onValueChange={handleCategoryChange}
+        id="category"
+        name="category"
+        required
+      />
     </>
   );
+};
+
+const InputFields = ({ category }: { category: Category }) => {
+  if (String(category) === 'Running') {
+    return (
+      <>
+        <FormRow>
+          <label htmlFor="distance">Distance (km)</label>
+          <Input type="number" id="distance" name="distance" placeholder="Distance" />
+        </FormRow>
+        <FormRow>
+          <label htmlFor="duration">Duration (minutes)</label>
+          <Input type="number" id="duration" name="duration" placeholder="Duration" />
+        </FormRow>
+      </>
+    );
+  }
+  if (String(category) === 'Walking') {
+    return (
+      <>
+        <FormRow>
+          <label htmlFor="distance">Distance (km)</label>
+          <Input type="number" id="distance" name="distance" placeholder="Distance" />
+        </FormRow>
+        <FormRow>
+          <label htmlFor="duration">Duration (minutes)</label>
+          <Input type="number" id="duration" name="duration" placeholder="Duration" />
+        </FormRow>
+      </>
+    );
+  }
+  if (String(category) === 'Cycling') {
+    return (
+      <>
+        <FormRow>
+          <label htmlFor="distance">Distance (km)</label>
+          <Input type="number" id="distance" name="distance" placeholder="Distance" />
+        </FormRow>
+        <FormRow>
+          <label htmlFor="duration">Duration (minutes)</label>
+          <Input type="number" id="duration" name="duration" placeholder="Duration" />
+        </FormRow>
+      </>
+    );
+  }
+  if (String(category) === 'Swimming') {
+    return (
+      <>
+        <FormRow>
+          <label htmlFor="distance">Distance (km)</label>
+          <Input type="number" id="distance" name="distance" placeholder="Distance" />
+        </FormRow>
+        <FormRow>
+          <label htmlFor="duration">Duration (minutes)</label>
+          <Input type="number" id="duration" name="duration" placeholder="Duration" />
+        </FormRow>
+      </>
+    );
+  }
+  if (String(category) === 'Hiking') {
+    return (
+      <>
+        <FormRow>
+          <label htmlFor="distance">Distance (km)</label>
+          <Input type="number" id="distance" name="distance" placeholder="Distance" />
+        </FormRow>
+        <FormRow>
+          <label htmlFor="duration">Duration (minutes) </label>
+          <Input type="number" id="duration" name="duration" placeholder="Duration" />
+        </FormRow>
+        <FormRow>
+          <label htmlFor="location">Location (optional)</label>
+          <Input type="text" id="location" name="location" placeholder="eg. The Peak, Hong Kong" />
+        </FormRow>
+      </>
+    );
+  }
 };

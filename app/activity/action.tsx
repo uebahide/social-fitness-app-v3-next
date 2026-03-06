@@ -2,12 +2,12 @@
 
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
-import z from 'zod';
 
 export async function createActivity(prevState: any, formData: FormData) {
   const cookiesStore = await cookies();
   const token = cookiesStore.get('token')?.value;
   let res: Response;
+  console.log('formData', formData);
 
   try {
     res = await fetch(`${process.env.API_URL}/api/activities`, {
