@@ -21,11 +21,12 @@ export const Button = ({
     <button
       type={type}
       className={cn(
+        'flex w-fit cursor-pointer items-center justify-center rounded-sm border border-gray-300 px-4 py-2 text-xs font-semibold hover:shadow-md disabled:cursor-not-allowed',
         color == 'primary' &&
-          'bg-brand-primary-400 hover:bg-brand-primary-500 disabled:bg-brand-primary-300',
+          'bg-brand-primary-400 hover:bg-brand-primary-500 disabled:bg-brand-primary-300 text-white',
         color == 'secondary' &&
-          'bg-brand-secondary-100 hover:bg-brand-secondary-200 disabled:bg-brand-secondary-100',
-        'flex w-fit cursor-pointer items-center justify-center rounded-lg border border-gray-300 px-2 py-1 hover:shadow-md disabled:cursor-not-allowed',
+          'bg-brand-secondary-100 hover:bg-brand-secondary-200 disabled:bg-brand-secondary-100 text-gray-600',
+        color == 'transparent' && 'border-none bg-transparent text-gray-600 hover:shadow-none',
         className,
       )}
       onClick={onClick}
