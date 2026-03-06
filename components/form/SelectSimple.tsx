@@ -8,7 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { CategoryIcon } from '../CategoryIcon';
 
 export function SelectSimple({
   id,
@@ -38,6 +39,12 @@ export function SelectSimple({
           <SelectGroup>
             {items.map((item) => (
               <SelectItem value={item.value} key={item.value}>
+                <CategoryIcon
+                  category={item.value.toLowerCase()}
+                  className="mr-2 h-2 w-2 cursor-pointer"
+                  size="medium"
+                />
+
                 {item.label}
               </SelectItem>
             ))}
