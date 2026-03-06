@@ -24,7 +24,7 @@ export function SelectSimple({
   onValueChange: (value: any) => any;
   required?: boolean;
 }) {
-  const [value, setValue] = useState<string | undefined>(undefined);
+  const [value, setValue] = useState<string | undefined>('running');
   const handleValueChange = (value: string) => {
     setValue(value);
     onValueChange(value);
@@ -51,7 +51,7 @@ export function SelectSimple({
           </SelectGroup>
         </SelectContent>
       </Select>
-      <input type="hidden" name={name} value={value ?? ''} id={id} />
+      <input type="hidden" name={name} value={value ?? 'running'} id={id} />
     </>
   );
 }
