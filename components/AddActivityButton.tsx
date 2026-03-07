@@ -10,6 +10,7 @@ import { TextareaSimple } from './form/TextAreaSimple';
 import { InputWithLabel } from './form/InputWithLabel';
 import { Input } from './form/Input';
 import { SelectSimple } from './form/SelectSimple';
+import { Button } from './buttons/Button';
 
 const createActivityInitialState = {
   errors: {},
@@ -38,7 +39,11 @@ export default function AddActivityButton({ categories }: { categories: Category
   return (
     <DialogFormOpenButton
       formAction={formAction}
-      buttonText="+ New"
+      buttonText={
+        <Button type="button" color="secondary">
+          + New
+        </Button>
+      }
       dialogTitle="My Activity"
       dialogDescription="New Activity"
       subitButtonText="Create Activity"

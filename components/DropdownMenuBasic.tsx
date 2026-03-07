@@ -36,9 +36,11 @@ export const DropdownMenuBasic = ({
 export const DropdownMenuItem = ({
   children,
   className,
+  onSelect,
 }: {
   children: React.ReactNode;
   className?: string;
+  onSelect?: (e: Event) => void;
 }) => {
   return (
     <DropdownMenu.Item
@@ -46,6 +48,7 @@ export const DropdownMenuItem = ({
         'group text-violet11 data-highlighted:bg-violet9 data-disabled:text-mauve8 data-highlighted:text-violet1 relative flex h-[25px] cursor-pointer items-center rounded-[3px] px-[10px] text-[13px] leading-none outline-none select-none hover:bg-gray-200 data-disabled:pointer-events-none',
         className,
       )}
+      onSelect={onSelect}
     >
       {children}
     </DropdownMenu.Item>

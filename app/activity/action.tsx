@@ -45,8 +45,20 @@ export async function deleteActivity(prevState: any, formData: FormData) {
   const token = cookiesStore.get('token')?.value;
   let res: Response;
 
+  console.log('deleteActivity', formData);
+
+  const id = formData.get('id');
+  if (!id) {
+    return {
+      errors: { id: 'Id is required' },
+      message: 'Id is required',
+      data: {},
+      ok: false,
+    };
+  }
+
   try {
-    res = await fetch(`${process.env.API_URL}/api/activities/${formData.get('id')}`, {
+    res = await fetch(`${process.env.API_URL}/api/activities/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,

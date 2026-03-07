@@ -38,7 +38,7 @@ export const CustomLink = ({
       href={href}
       className={cn(
         className,
-        'flex items-center justify-start gap-2 rounded-lg py-1 pr-8 pl-3 hover:bg-gray-200 active:bg-gray-200',
+        'flex items-center justify-start gap-2 rounded-sm py-1 pr-8 pl-3 hover:bg-gray-200 active:bg-gray-200',
       )}
     >
       {children}

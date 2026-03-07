@@ -1,28 +1,50 @@
+'use client';
+
 import { ActivityType } from '@/types/api/activity';
 import { Avatar } from './Avatar';
 import { getTimeOfDay, getUnit, uppercaseFirstLetter } from '@/lib/utils';
 import { CategoryIcon } from './CategoryIcon';
 import { DropdownMenuBasic, DropdownMenuItem } from './DropdownMenuBasic';
-import { Pencil, Trash2Icon, TrashIcon } from 'lucide-react';
+import { Pencil, Trash2Icon } from 'lucide-react';
+import { useState } from 'react';
+import { DeleteActivityDialogForm } from './DeleteActivityDialogForm';
 
 export default function ActivityCard({ activity }: { activity: ActivityType }) {
   const created_user = activity.user;
   const details = activity.details;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+
   return (
     <article className="bg-card relative rounded-lg border border-gray-300 p-7 shadow-sm hover:shadow-md">
-      {/* to do -  menu button (delete, edit) */}
+      {/*  menu button (delete, edit) */}
       <div className="absolute top-3 right-7">
         <DropdownMenuBasic buttonText="...">
           <DropdownMenuItem className="space-x-1">
             <Pencil className="h-4 w-4" />
             <p>Edit</p>
           </DropdownMenuItem>
-          <DropdownMenuItem className="space-x-1">
-            <Trash2Icon className="h-4 w-4" />
-            <p>Delete</p>
+          <DropdownMenuItem
+            className="space-x-1"
+            onSelect={(e) => {
+              e.preventDefault();
+              setMenuOpen(false);
+              setDeleteOpen(true);
+            }}
+          >
+            <div className="flex flex-row items-center gap-1">
+              <Trash2Icon className="h-4 w-4" />
+              Delete
+            </div>
           </DropdownMenuItem>
         </DropdownMenuBasic>
       </div>
+
+      <DeleteActivityDialogForm
+        deleteOpen={deleteOpen}
+        setDeleteOpen={setDeleteOpen}
+        activityId={activity.id}
+      />
 
       <main className="r mb-10 grid grid-cols-[50px_auto] grid-rows-[1fr_auto] space-y-4 gap-x-6">
         <span className="flex justify-center">

@@ -1,5 +1,6 @@
 'use client';
 
+import { useActionState, useEffect, useRef } from 'react';
 import {
   Dialog,
   DialogClose,
@@ -8,41 +9,42 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { Button } from './buttons/Button';
-import React, { useRef } from 'react';
+} from './ui/dialog';
+import { deleteActivity } from '@/app/activity/action';
 import { ChevronDownIcon } from 'lucide-react';
+import { Button } from './buttons/Button';
 import { SubmitButton } from './buttons/SubmitButton';
+import RunIcon from './icons/Run';
 
-export default function DialogFormOpenButton({
-  formAction,
-  buttonText,
-  dialogTitle,
-  dialogDescription,
-  subitButtonText,
-  open,
-  setOpen,
-  children,
+const deleteActivityInitialState = {
+  ok: false,
+  message: '',
+  data: {},
+  errors: {},
+};
+
+export const DeleteActivityDialogForm = ({
+  deleteOpen,
+  setDeleteOpen,
+  activityId,
 }: {
-  formAction: (formData: FormData) => void | Promise<void>;
-  buttonText: string | React.ReactNode;
-  dialogTitle: string | React.ReactNode;
-  dialogDescription: string | React.ReactNode;
-  subitButtonText: string | React.ReactNode;
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  children: React.ReactNode;
-}) {
+  deleteOpen: boolean;
+  setDeleteOpen: (boolean: boolean) => void;
+  activityId: string;
+}) => {
+  const [state, formAction] = useActionState(deleteActivity, deleteActivityInitialState);
   const formRef = useRef<HTMLFormElement>(null);
 
-  return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{buttonText}</DialogTrigger>
+  useEffect(() => {
+    if (state?.ok) {
+      setDeleteOpen(false);
+    }
+  }, [state]);
 
-      <DialogContent>
+  return (
+    <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
+      <DialogContent className="w-[400px]">
         <form
-          ref={formRef}
           action={formAction}
           className="space-y-4"
           onKeyDown={(e) => {
@@ -54,25 +56,24 @@ export default function DialogFormOpenButton({
         >
           <DialogHeader className="flex flex-row items-center gap-2">
             <DialogTitle className="flex flex-row gap-1 rounded-sm border border-gray-300 px-2 py-1 text-sm font-medium">
-              {/* <RunIcon className="h-5 w-5" /> My Activity */}
-              {dialogTitle}
+              <RunIcon className="h-5 w-5" /> My Activity
             </DialogTitle>
             <ChevronDownIcon className="size-4 rotate-270 text-black" />
-            <DialogDescription className="text-black">{dialogDescription}</DialogDescription>
+            <DialogDescription className="text-black">Delete Activity</DialogDescription>
           </DialogHeader>
 
-          {children}
-
+          <input name="id" value={activityId} id="id" type="hidden" />
+          <p>Are you sure you want to delete this activity?</p>
           <hr />
 
           <DialogFooter>
             <DialogClose asChild>
               <Button color="transparent">Cancel</Button>
             </DialogClose>
-            <SubmitButton color="primary">{subitButtonText}</SubmitButton>
+            <SubmitButton color="primary">Delete Activity</SubmitButton>
           </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
   );
-}
+};
