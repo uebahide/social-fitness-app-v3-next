@@ -12,40 +12,15 @@ import { DeleteActivityDialogForm } from './DeleteActivityDialogForm';
 export default function ActivityCard({ activity }: { activity: ActivityType }) {
   const created_user = activity.user;
   const details = activity.details;
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [deleteOpen, setDeleteOpen] = useState(false);
 
   return (
     <article className="bg-card relative rounded-lg border border-gray-300 p-7 shadow-sm hover:shadow-md">
       {/*  menu button (delete, edit) */}
       <div className="absolute top-3 right-7">
-        <DropdownMenuBasic buttonText="...">
-          <DropdownMenuItem className="space-x-1">
-            <Pencil className="h-4 w-4" />
-            <p>Edit</p>
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            className="space-x-1"
-            onSelect={(e) => {
-              e.preventDefault();
-              setMenuOpen(false);
-              setDeleteOpen(true);
-            }}
-          >
-            <div className="flex flex-row items-center gap-1">
-              <Trash2Icon className="h-4 w-4" />
-              Delete
-            </div>
-          </DropdownMenuItem>
-        </DropdownMenuBasic>
+        <ActivityCardMenu activityId={activity.id} />
       </div>
 
-      <DeleteActivityDialogForm
-        deleteOpen={deleteOpen}
-        setDeleteOpen={setDeleteOpen}
-        activityId={activity.id}
-      />
-
+      {/* activity card main content */}
       <main className="r mb-10 grid grid-cols-[50px_auto] grid-rows-[1fr_auto] space-y-4 gap-x-6">
         <span className="flex justify-center">
           <Avatar user={created_user} size="xsmall" />
@@ -90,6 +65,8 @@ export default function ActivityCard({ activity }: { activity: ActivityType }) {
         </section>
       </main>
       <hr />
+
+      {/* activity card footer */}
       <footer className="mt-5 flex flex-col gap-2">
         <span className="text-sm text-gray-500">Description</span>
         <span className="">{activity.description}</span>
@@ -97,3 +74,38 @@ export default function ActivityCard({ activity }: { activity: ActivityType }) {
     </article>
   );
 }
+
+const ActivityCardMenu = ({ activityId }: { activityId: string }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+
+  return (
+    <>
+      <DropdownMenuBasic buttonText="...">
+        <DropdownMenuItem className="space-x-1">
+          <Pencil className="h-4 w-4" />
+          <p>Edit</p>
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          className="space-x-1"
+          onSelect={(e) => {
+            e.preventDefault();
+            setMenuOpen(false);
+            setDeleteOpen(true);
+          }}
+        >
+          <div className="flex flex-row items-center gap-1">
+            <Trash2Icon className="h-4 w-4" />
+            Delete
+          </div>
+        </DropdownMenuItem>
+      </DropdownMenuBasic>
+
+      <DeleteActivityDialogForm
+        deleteOpen={deleteOpen}
+        setDeleteOpen={setDeleteOpen}
+        activityId={activityId}
+      />
+    </>
+  );
+};
