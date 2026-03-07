@@ -2,12 +2,10 @@
 
 import { useUser } from '@/contexts/UserProvider';
 import { LogoutButton } from './LogoutButton';
-import { useEffect } from 'react';
-import Image from 'next/image';
 import { Button } from './buttons/Button';
 import Link from 'next/link';
-import AvatarPlaceholder from './AvatarPlaceholder';
 import { Avatar } from './Avatar';
+import { LogInIcon } from 'lucide-react';
 
 export default function Header() {
   const { user, setUser } = useUser();
@@ -16,18 +14,19 @@ export default function Header() {
   return (
     <div className="flex justify-end border-b border-gray-200 px-5 py-3">
       {user ? (
-        <div className="flex items-center gap-5">
-          <Link href="/profile" className="flex cursor-pointer items-center gap-5">
-            <p>{user.name}</p>
-            {/* todo - replace this icon component with Image component */}
-            <Avatar />
-          </Link>
+        <div className="flex items-center gap-3">
           <LogoutButton />
+          <Link href="/profile" className="flex cursor-pointer items-center">
+            {/* <p>{user.name}</p> */}
+            <Avatar size="xsmall" />
+          </Link>
         </div>
       ) : (
         <div>
-          <Button color="primary">
-            <Link href="/login">Login</Link>
+          <Button color="secondary">
+            <Link href="/login">
+              <LogInIcon className="h-4 w-4" />
+            </Link>
           </Button>
         </div>
       )}
