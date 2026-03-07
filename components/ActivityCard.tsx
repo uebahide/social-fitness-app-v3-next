@@ -8,6 +8,7 @@ import { DropdownMenuBasic, DropdownMenuItem } from './DropdownMenuBasic';
 import { Pencil, Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
 import { DeleteActivityDialogForm } from './DeleteActivityDialogForm';
+import { UpdateActivityDialogForm } from './UpdateActivityDialogForm';
 
 export default function ActivityCard({ activity }: { activity: ActivityType }) {
   const created_user = activity.user;
@@ -78,6 +79,7 @@ export default function ActivityCard({ activity }: { activity: ActivityType }) {
 const ActivityCardMenu = ({ activityId }: { activityId: string }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [updateOpen, setUpdateOpen] = useState(false);
 
   return (
     <>
@@ -104,6 +106,12 @@ const ActivityCardMenu = ({ activityId }: { activityId: string }) => {
       <DeleteActivityDialogForm
         deleteOpen={deleteOpen}
         setDeleteOpen={setDeleteOpen}
+        activityId={activityId}
+      />
+
+      <UpdateActivityDialogForm
+        updateOpen={updateOpen}
+        setUpdateOpen={setUpdateOpen}
         activityId={activityId}
       />
     </>
