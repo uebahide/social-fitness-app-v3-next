@@ -9,7 +9,7 @@ import { SelectSimple } from './form/SelectSimple';
 import { CreateActivityState } from './AddActivityButton';
 import { InputWithLabel } from './form/InputWithLabel';
 import { Input } from './form/Input';
-import { ActivityType } from '@/types/api/activity';
+import { ActivityType, HikingActivityDetailsType } from '@/types/api/activity';
 import { uppercaseFirstLetter } from '@/lib/utils';
 
 export const ActivityForm = ({
@@ -125,6 +125,7 @@ const InputFields = ({ category, activity }: { category: Category; activity?: Ac
     );
   }
   if (String(category) === 'Hiking') {
+    const hikingDetails = activity?.details as HikingActivityDetailsType;
     return (
       <>
         <DistanceAndDurationFields
@@ -137,7 +138,7 @@ const InputFields = ({ category, activity }: { category: Category; activity?: Ac
             id="location"
             name="location"
             placeholder="eg. The Peak, Hong Kong"
-            defaultValue={activity?.details.location}
+            defaultValue={hikingDetails.location}
           />
         </InputWithLabel>
       </>
