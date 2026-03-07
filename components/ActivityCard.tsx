@@ -9,6 +9,7 @@ import { Pencil, Trash2Icon } from 'lucide-react';
 import { useState } from 'react';
 import { DeleteActivityDialogForm } from './DeleteActivityDialogForm';
 import { UpdateActivityDialogForm } from './UpdateActivityDialogForm';
+import { useCategories } from '@/contexts/CategoriesProvider';
 
 export default function ActivityCard({ activity }: { activity: ActivityType }) {
   const created_user = activity.user;
@@ -77,6 +78,7 @@ export default function ActivityCard({ activity }: { activity: ActivityType }) {
 }
 
 const ActivityCardMenu = ({ activityId }: { activityId: string }) => {
+  const { categories } = useCategories();
   const [menuOpen, setMenuOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [updateOpen, setUpdateOpen] = useState(false);
@@ -84,7 +86,14 @@ const ActivityCardMenu = ({ activityId }: { activityId: string }) => {
   return (
     <>
       <DropdownMenuBasic buttonText="...">
-        <DropdownMenuItem className="space-x-1">
+        <DropdownMenuItem
+          className="space-x-1"
+          onSelect={(e) => {
+            e.preventDefault();
+            setMenuOpen(false);
+            setUpdateOpen(true);
+          }}
+        >
           <Pencil className="h-4 w-4" />
           <p>Edit</p>
         </DropdownMenuItem>
@@ -113,6 +122,7 @@ const ActivityCardMenu = ({ activityId }: { activityId: string }) => {
         updateOpen={updateOpen}
         setUpdateOpen={setUpdateOpen}
         activityId={activityId}
+        categories={categories}
       />
     </>
   );

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { FormRow } from './form/FormRow';
 import { TextareaSimple } from './form/TextAreaSimple';

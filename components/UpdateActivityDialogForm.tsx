@@ -15,6 +15,8 @@ import { ChevronDownIcon } from 'lucide-react';
 import { Button } from './buttons/Button';
 import { SubmitButton } from './buttons/SubmitButton';
 import RunIcon from './icons/Run';
+import { ActivityForm } from './ActivityForm';
+import { Category } from '@/types/api/category';
 
 const editActivityInitialState = {
   ok: false,
@@ -24,10 +26,12 @@ const editActivityInitialState = {
 };
 
 export const UpdateActivityDialogForm = ({
+  categories,
   updateOpen,
   setUpdateOpen,
   activityId,
 }: {
+  categories: Category[];
   updateOpen: boolean;
   setUpdateOpen: (boolean: boolean) => void;
   activityId: string;
@@ -43,7 +47,7 @@ export const UpdateActivityDialogForm = ({
 
   return (
     <Dialog open={updateOpen} onOpenChange={setUpdateOpen}>
-      <DialogContent className="w-[400px]">
+      <DialogContent>
         <form
           action={formAction}
           className="space-y-4"
@@ -62,13 +66,15 @@ export const UpdateActivityDialogForm = ({
             <DialogDescription className="text-black">Edit Activity</DialogDescription>
           </DialogHeader>
 
+          <ActivityForm categories={categories} state={state} />
+
           <hr />
 
           <DialogFooter>
             <DialogClose asChild>
               <Button color="transparent">Cancel</Button>
             </DialogClose>
-            <SubmitButton color="danger">Update Activity</SubmitButton>
+            <SubmitButton color="primary">Update Activity</SubmitButton>
           </DialogFooter>
         </form>
       </DialogContent>

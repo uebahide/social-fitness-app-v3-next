@@ -6,6 +6,7 @@ import { Category } from '@/types/api/category';
 import DialogFormOpenButton from './DialogFormOpenButton';
 import { Button } from './buttons/Button';
 import { ActivityForm } from './ActivityForm';
+import { useCategories } from '@/contexts/CategoriesProvider';
 
 const createActivityInitialState = {
   errors: {
@@ -26,7 +27,8 @@ const createActivityInitialState = {
 
 export type CreateActivityState = typeof createActivityInitialState;
 
-export default function AddActivityButton({ categories }: { categories: Category[] }) {
+export default function AddActivityButton() {
+  const { categories } = useCategories();
   const [state, formAction] = useActionState(createActivity, createActivityInitialState);
   const [open, setOpen] = useState(false);
 

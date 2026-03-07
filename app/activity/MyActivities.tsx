@@ -7,22 +7,13 @@ import ActivityCard from '@/components/ActivityCard';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/buttons/Button';
+import { useCategories } from '@/contexts/CategoriesProvider';
 
-export const MyActivities = ({
-  categories,
-  activities,
-}: {
-  categories: Category[];
-  activities: ActivityType[];
-}) => {
+export const MyActivities = ({ activities }: { activities: ActivityType[] }) => {
   const [categoryFilter, setCategoryFilter] = useState<Category | null>(null);
   return (
     <div className="space-y-6">
-      <CategoryFilter
-        categories={categories}
-        setCategoryFilter={setCategoryFilter}
-        categoryFilter={categoryFilter}
-      />
+      <CategoryFilter setCategoryFilter={setCategoryFilter} categoryFilter={categoryFilter} />
       <div className="max-h-[520px] overflow-y-auto">
         <ActivityList activities={activities} categoryFilter={categoryFilter} />
       </div>
@@ -31,14 +22,13 @@ export const MyActivities = ({
 };
 
 function CategoryFilter({
-  categories,
   setCategoryFilter,
   categoryFilter,
 }: {
-  categories: Category[];
   setCategoryFilter: (category: Category | null) => void;
   categoryFilter: Category | null;
 }) {
+  const { categories } = useCategories();
   const handleCategoryFilter = (category: Category) => {
     setCategoryFilter(category);
     if (String(categoryFilter) === String(category)) {
