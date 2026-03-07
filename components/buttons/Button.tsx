@@ -27,6 +27,7 @@ export const Button = ({
         color == 'secondary' &&
           'bg-brand-secondary-100 hover:bg-brand-secondary-200 disabled:bg-brand-secondary-100 text-gray-600',
         color == 'transparent' && 'border-none bg-transparent text-gray-600 hover:shadow-none',
+        color == 'danger' && 'bg-rose-500 text-white hover:bg-rose-600 disabled:bg-rose-400',
         className,
       )}
       onClick={onClick}

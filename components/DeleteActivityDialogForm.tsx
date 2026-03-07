@@ -70,7 +70,7 @@ export const DeleteActivityDialogForm = ({
             <DialogClose asChild>
               <Button color="transparent">Cancel</Button>
             </DialogClose>
-            <SubmitButton color="primary">Delete Activity</SubmitButton>
+            <SubmitButton color="danger">Delete Activity</SubmitButton>
           </DialogFooter>
         </form>
       </DialogContent>
