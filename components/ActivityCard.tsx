@@ -91,28 +91,34 @@ const ActivityCardMenu = ({
   return (
     <>
       <DropdownMenuBasic buttonText="...">
-        <DropdownMenuItem
-          className="space-x-1"
-          onSelect={(e) => {
-            e.preventDefault();
-            setMenuOpen(false);
-            setUpdateOpen(true);
-          }}
-        >
-          <Pencil className="h-4 w-4" />
-          <p>Edit</p>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          className="space-x-1"
-          onSelect={(e) => {
-            e.preventDefault();
-            setMenuOpen(false);
-            setDeleteOpen(true);
-          }}
-        >
-          <Trash2Icon className="h-4 w-4" />
-          Delete
-        </DropdownMenuItem>
+        <div className="flex flex-col gap-1">
+          <DropdownMenuItem
+            className="space-x-1"
+            onSelect={(e) => {
+              e.preventDefault();
+              setMenuOpen(false);
+              setUpdateOpen(true);
+            }}
+          >
+            <div className="flex items-center gap-2">
+              <Pencil className="h-4 w-4" />
+              <p>Edit</p>
+            </div>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="space-x-1"
+            onSelect={(e) => {
+              e.preventDefault();
+              setMenuOpen(false);
+              setDeleteOpen(true);
+            }}
+          >
+            <div className="flex items-center gap-2">
+              <Trash2Icon className="h-4 w-4" />
+              Delete
+            </div>
+          </DropdownMenuItem>
+        </div>
       </DropdownMenuBasic>
 
       <UpdateActivityDialogForm
