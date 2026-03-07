@@ -8,6 +8,8 @@ import { cookies } from 'next/headers';
 import { User } from '@/types/api/user';
 import { UserProvider } from '@/contexts/UserProvider';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { redirect } from 'next/navigation';
+import { CategoriesProvider } from '@/contexts/CategoriesProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,29 +35,39 @@ export default async function RootLayout({
   const token = cookiesStore.get('token')?.value;
   let user: User | null = null;
 
-  const res = await fetch(`${process.env.API_URL}/api/me`, {
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const [userRes, categoriesRes] = await Promise.all([
+    fetch(`${process.env.API_URL}/api/me`, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+    fetch(`${process.env.API_URL}/api/categories`, {
+      next: { revalidate: 3600 }, // 1 hour
+      headers: {
+        Accept: 'application/json',
+      },
+    }),
+  ]);
 
-  if (res.ok) {
-    const resJson = await res.json();
-    user = resJson.user;
-  } else {
-    console.log('unauthorized');
+  if (!categoriesRes.ok) {
+    throw new Error(
+      `Failed to fetch categories: ${categoriesRes.status} ${categoriesRes.statusText}`,
+    );
   }
 
+  const [userJson, categories] = await Promise.all([userRes.json(), categoriesRes.json()]);
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <TooltipProvider>
           <div className="grid h-screen grid-cols-[220px_4fr] grid-rows-[auto_1fr_auto]">
-            <UserProvider initialUser={user}>
-              <Navbar />
-              <Header />
-              <Main>{children}</Main>
+            <UserProvider initialUser={userJson.user}>
+              <CategoriesProvider initialCategories={categories}>
+                <Navbar />
+                <Header />
+                <Main>{children}</Main>
+              </CategoriesProvider>
             </UserProvider>
           </div>
         </TooltipProvider>

@@ -1,27 +1,34 @@
 'use client';
 
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { Button } from './buttons/Button';
 import { useActionState, useEffect, useState } from 'react';
 import { createActivity } from '@/app/activity/action';
-import { ActivityForm } from './ActivityForm';
 import { Category } from '@/types/api/category';
+import DialogFormOpenButton from './DialogFormOpenButton';
+import { Button } from './buttons/Button';
+import { ActivityForm } from './ActivityForm';
+import { useCategories } from '@/contexts/CategoriesProvider';
 
 const createActivityInitialState = {
-  errors: {},
-  message: '',
-  data: {
+  errors: {
     title: '',
     description: '',
     category: '',
     details: {},
+    location: '',
+    distance: '',
+    duration: '',
+    date: '',
+    time: '',
   },
+  message: '',
+  data: {},
   ok: false,
 };
 
 export type CreateActivityState = typeof createActivityInitialState;
 
-export default function AddActivityButton({ categories }: { categories: Category[] }) {
+export default function AddActivityButton() {
+  const { categories } = useCategories();
   const [state, formAction] = useActionState(createActivity, createActivityInitialState);
   const [open, setOpen] = useState(false);
 
@@ -32,19 +39,21 @@ export default function AddActivityButton({ categories }: { categories: Category
   }, [state]);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+    <DialogFormOpenButton
+      formAction={formAction}
+      buttonText={
         <Button type="button" color="secondary">
           + New
         </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <ActivityForm
-          state={state as CreateActivityState}
-          formAction={formAction}
-          categories={categories}
-        />
-      </DialogContent>
-    </Dialog>
+      }
+      dialogTitle="My Activity"
+      dialogDescription="New Activity"
+      subitButtonText="Create Activity"
+      open={open}
+      setOpen={setOpen}
+    >
+      {/* Dialog content here */}
+      <ActivityForm categories={categories} state={state} />
+    </DialogFormOpenButton>
   );
 }

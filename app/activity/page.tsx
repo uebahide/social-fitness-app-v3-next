@@ -23,22 +23,15 @@ export default async function Activity({ searchParams }: PageProps) {
   if (!token) redirect('/login');
 
   let activitiesRes: Response;
-  let categoriesRes: Response;
   let countRes: Response;
 
   try {
-    [activitiesRes, categoriesRes, countRes] = await Promise.all([
+    [activitiesRes, countRes] = await Promise.all([
       fetch(`${process.env.API_URL}/api/activities/paginated?page=${page}&per_page=${PER_PAGE}`, {
         cache: 'no-store',
         headers: {
           Accept: 'application/json',
           Authorization: `Bearer ${token}`,
-        },
-      }),
-      fetch(`${process.env.API_URL}/api/categories`, {
-        next: { revalidate: 3600 }, // 1 hour
-        headers: {
-          Accept: 'application/json',
         },
       }),
       fetch(`${process.env.API_URL}/api/activities/count`, {
@@ -57,8 +50,6 @@ export default async function Activity({ searchParams }: PageProps) {
   if (
     activitiesRes.status === 401 ||
     activitiesRes.status === 419 ||
-    categoriesRes.status === 401 ||
-    categoriesRes.status === 419 ||
     countRes.status === 401 ||
     countRes.status === 419
   ) {
@@ -71,20 +62,11 @@ export default async function Activity({ searchParams }: PageProps) {
       `Failed to fetch activities: ${activitiesRes.status} ${activitiesRes.statusText}`,
     );
   }
-  if (!categoriesRes.ok) {
-    throw new Error(
-      `Failed to fetch categories: ${categoriesRes.status} ${categoriesRes.statusText}`,
-    );
-  }
   if (!countRes.ok) {
     throw new Error(`Failed to fetch count: ${countRes.status} ${countRes.statusText}`);
   }
 
-  const [activitiesJson, categories, countJson] = await Promise.all([
-    activitiesRes.json(),
-    categoriesRes.json(),
-    countRes.json(),
-  ]);
+  const [activitiesJson, countJson] = await Promise.all([activitiesRes.json(), countRes.json()]);
 
   const activities = activitiesJson.data ?? [];
   const totalPages = Math.ceil(countJson.count / PER_PAGE);
@@ -94,10 +76,10 @@ export default async function Activity({ searchParams }: PageProps) {
       <main className="space-y-6">
         <header className="flex items-center gap-3">
           <h2 className="">My Activity</h2>
-          <AddActivityButton categories={categories} />
+          <AddActivityButton />
         </header>
 
-        <MyActivities activities={activities} categories={categories} />
+        <MyActivities activities={activities} />
         <PaginationSimple page={page} totalPages={totalPages} />
       </main>
 
