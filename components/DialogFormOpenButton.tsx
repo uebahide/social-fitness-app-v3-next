@@ -11,38 +11,30 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Button } from './buttons/Button';
-import React, { useActionState, useEffect, useRef, useState } from 'react';
-import { Category } from '@/types/api/category';
+import React, { useRef } from 'react';
 import { ChevronDownIcon } from 'lucide-react';
 import { SubmitButton } from './buttons/SubmitButton';
 
 export default function DialogFormOpenButton({
-  action,
-  initialState,
+  formAction,
   buttonText,
   dialogTitle,
   dialogDescription,
   subitButtonText,
+  open,
+  setOpen,
   children,
 }: {
-  categories: Category[];
-  action: (state: any) => any | Promise<any>;
+  formAction: (formData: FormData) => void | Promise<void>;
   buttonText: string | React.ReactNode;
-  initialState: any;
   dialogTitle: string | React.ReactNode;
   dialogDescription: string | React.ReactNode;
   subitButtonText: string | React.ReactNode;
+  open: boolean;
+  setOpen: (open: boolean) => void;
   children: React.ReactNode;
 }) {
-  const [state, formAction] = useActionState(action, initialState);
-  const [open, setOpen] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
-
-  useEffect(() => {
-    if (state?.ok) {
-      setOpen(false);
-    }
-  }, [state]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

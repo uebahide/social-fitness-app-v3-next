@@ -37,13 +37,15 @@ export default function AddActivityButton({ categories }: { categories: Category
 
   return (
     <DialogFormOpenButton
-      action={createActivity}
-      initialState={createActivityInitialState}
+      formAction={formAction}
       buttonText="+ New"
       dialogTitle="My Activity"
       dialogDescription="New Activity"
       subitButtonText="Create Activity"
+      open={open}
+      setOpen={setOpen}
     >
+      {/* Dialog content here */}
       <FormRow>
         <input
           type="text"
@@ -54,7 +56,6 @@ export default function AddActivityButton({ categories }: { categories: Category
         />
         <ErrorMessage>{state?.errors.title}</ErrorMessage>
       </FormRow>
-
       <FormRow>
         <TextareaSimple
           id="description"
@@ -63,19 +64,12 @@ export default function AddActivityButton({ categories }: { categories: Category
           className="resize-none overflow-hidden focus:outline-none"
         />
       </FormRow>
-
-      <CategoryAndDetailsFields categories={categories} state={state} />
+      <CategoryAndDetailsFields categories={categories} />
     </DialogFormOpenButton>
   );
 }
 
-const CategoryAndDetailsFields = ({
-  categories,
-  state,
-}: {
-  categories: Category[];
-  state: CreateActivityState;
-}) => {
+const CategoryAndDetailsFields = ({ categories }: { categories: Category[] }) => {
   const [category, setCategory] = useState<Category>('null' as unknown as Category);
 
   const handleCategoryChange = (value: string) => {
