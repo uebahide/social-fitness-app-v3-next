@@ -19,7 +19,7 @@ export default function ActivityCard({ activity }: { activity: ActivityType }) {
     <article className="bg-card relative rounded-lg border border-gray-300 p-7 shadow-sm hover:shadow-md">
       {/*  menu button (delete, edit) */}
       <div className="absolute top-3 right-7">
-        <ActivityCardMenu activityId={activity.id} />
+        <ActivityCardMenu activityId={activity.id} activity={activity} />
       </div>
 
       {/* activity card main content */}
@@ -77,8 +77,13 @@ export default function ActivityCard({ activity }: { activity: ActivityType }) {
   );
 }
 
-const ActivityCardMenu = ({ activityId }: { activityId: string }) => {
-  const { categories } = useCategories();
+const ActivityCardMenu = ({
+  activityId,
+  activity,
+}: {
+  activityId: string;
+  activity: ActivityType;
+}) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [updateOpen, setUpdateOpen] = useState(false);
@@ -105,24 +110,21 @@ const ActivityCardMenu = ({ activityId }: { activityId: string }) => {
             setDeleteOpen(true);
           }}
         >
-          <div className="flex flex-row items-center gap-1">
-            <Trash2Icon className="h-4 w-4" />
-            Delete
-          </div>
+          <Trash2Icon className="h-4 w-4" />
+          Delete
         </DropdownMenuItem>
       </DropdownMenuBasic>
+
+      <UpdateActivityDialogForm
+        updateOpen={updateOpen}
+        setUpdateOpen={setUpdateOpen}
+        activity={activity}
+      />
 
       <DeleteActivityDialogForm
         deleteOpen={deleteOpen}
         setDeleteOpen={setDeleteOpen}
         activityId={activityId}
-      />
-
-      <UpdateActivityDialogForm
-        updateOpen={updateOpen}
-        setUpdateOpen={setUpdateOpen}
-        activityId={activityId}
-        categories={categories}
       />
     </>
   );

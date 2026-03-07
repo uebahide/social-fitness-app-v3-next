@@ -9,13 +9,17 @@ import { SelectSimple } from './form/SelectSimple';
 import { CreateActivityState } from './AddActivityButton';
 import { InputWithLabel } from './form/InputWithLabel';
 import { Input } from './form/Input';
+import { ActivityType } from '@/types/api/activity';
+import { uppercaseFirstLetter } from '@/lib/utils';
 
 export const ActivityForm = ({
   categories,
   state,
+  activity,
 }: {
   categories: Category[];
   state: CreateActivityState;
+  activity?: ActivityType;
 }) => {
   return (
     <>
@@ -27,6 +31,7 @@ export const ActivityForm = ({
           name="title"
           placeholder="Title"
           className="font-bold focus:outline-none"
+          defaultValue={activity?.title ?? ''}
         />
         <ErrorMessage>{state?.errors.title}</ErrorMessage>
       </FormRow>
@@ -36,15 +41,33 @@ export const ActivityForm = ({
           name="description"
           placeholder="Add description..."
           className="resize-none overflow-hidden focus:outline-none"
+          defaultValue={activity?.description ?? ''}
         />
       </FormRow>
-      <CategoryAndDetailsFields categories={categories} />
+      <CategoryAndDetailsFields
+        categories={categories}
+        defaultValue={activity?.category}
+        readonly={!!activity}
+        activity={activity}
+      />
     </>
   );
 };
 
-export const CategoryAndDetailsFields = ({ categories }: { categories: Category[] }) => {
-  const [category, setCategory] = useState<Category>('null' as unknown as Category);
+export const CategoryAndDetailsFields = ({
+  categories,
+  defaultValue,
+  readonly = false,
+  activity,
+}: {
+  categories: Category[];
+  defaultValue?: string;
+  readonly?: boolean;
+  activity?: ActivityType;
+}) => {
+  const [category, setCategory] = useState<Category>(
+    (uppercaseFirstLetter(defaultValue ?? '') ?? 'null') as unknown as Category,
+  );
 
   const handleCategoryChange = (value: string) => {
     setCategory(
@@ -54,52 +77,101 @@ export const CategoryAndDetailsFields = ({ categories }: { categories: Category[
 
   return (
     <>
-      <InputFields category={category} />
+      <InputFields category={category} activity={activity} />
       <SelectSimple
         items={categories.map((c: Category) => ({ value: String(c), label: String(c) }))}
         onValueChange={handleCategoryChange}
         id="category"
         name="category"
+        defaultValue={defaultValue}
         required
+        readonly={readonly}
       />
     </>
   );
 };
 
-const InputFields = ({ category }: { category: Category }) => {
+const InputFields = ({ category, activity }: { category: Category; activity?: ActivityType }) => {
   if (String(category) === 'Running') {
-    return <DistanceAndDurationFields />;
+    return (
+      <DistanceAndDurationFields
+        defaultDistance={activity?.details.distance}
+        defaultDuration={activity?.details.duration}
+      />
+    );
   }
   if (String(category) === 'Walking') {
-    return <DistanceAndDurationFields />;
+    return (
+      <DistanceAndDurationFields
+        defaultDistance={activity?.details.distance}
+        defaultDuration={activity?.details.duration}
+      />
+    );
   }
   if (String(category) === 'Cycling') {
-    return <DistanceAndDurationFields />;
+    return (
+      <DistanceAndDurationFields
+        defaultDistance={activity?.details.distance}
+        defaultDuration={activity?.details.duration}
+      />
+    );
   }
   if (String(category) === 'Swimming') {
-    return <DistanceAndDurationFields />;
+    return (
+      <DistanceAndDurationFields
+        defaultDistance={activity?.details.distance}
+        defaultDuration={activity?.details.duration}
+      />
+    );
   }
   if (String(category) === 'Hiking') {
     return (
       <>
-        <DistanceAndDurationFields />
+        <DistanceAndDurationFields
+          defaultDistance={activity?.details.distance}
+          defaultDuration={activity?.details.duration}
+        />
         <InputWithLabel label="Location" unit="optional">
-          <Input type="text" id="location" name="location" placeholder="eg. The Peak, Hong Kong" />
+          <Input
+            type="text"
+            id="location"
+            name="location"
+            placeholder="eg. The Peak, Hong Kong"
+            defaultValue={activity?.details.location}
+          />
         </InputWithLabel>
       </>
     );
   }
 };
 
-const DistanceAndDurationFields = () => {
+const DistanceAndDurationFields = ({
+  defaultDistance,
+  defaultDuration,
+}: {
+  defaultDistance?: number;
+  defaultDuration?: number;
+}) => {
   return (
     <div className="grid grid-cols-2 gap-4">
       <InputWithLabel label="Distance" unit="km">
-        <Input type="number" placeholder="0.0" id="distance" name="distance" />
+        <Input
+          type="number"
+          placeholder="0.0"
+          id="distance"
+          name="distance"
+          defaultValue={defaultDistance?.toString()}
+        />
       </InputWithLabel>
 
       <InputWithLabel label="Duration" unit="min">
-        <Input type="number" placeholder="0" id="duration" name="duration" />
+        <Input
+          type="number"
+          placeholder="0"
+          id="duration"
+          name="duration"
+          defaultValue={defaultDuration?.toString()}
+        />
       </InputWithLabel>
     </div>
   );

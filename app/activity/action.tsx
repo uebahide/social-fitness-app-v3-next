@@ -92,6 +92,17 @@ export async function updateActivity(prevState: any, formData: FormData) {
   const token = cookiesStore.get('token')?.value;
   let res: Response;
 
+  const data = {
+    title: formData.get('title'),
+    description: formData.get('description'),
+    category: formData.get('category'),
+    details: {
+      distance: formData.get('distance'),
+      duration: formData.get('duration'),
+      location: formData.get('location') ?? null,
+    },
+  };
+
   const id = formData.get('id');
   if (!id) {
     return {
@@ -106,13 +117,18 @@ export async function updateActivity(prevState: any, formData: FormData) {
     res = await fetch(`${process.env.API_URL}/api/activities/${id}`, {
       method: 'PUT',
       headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: formData,
+      body: JSON.stringify(data),
+      cache: 'no-store',
     });
   } catch (e) {
     throw new Error(`Network error while logout : ${String(e)}`);
   }
+
+  console.log('res', res);
 
   if (!res.ok) {
     const resJson = await res.json();
@@ -124,7 +140,7 @@ export async function updateActivity(prevState: any, formData: FormData) {
     };
   }
 
-  revalidatePath('/activity', 'layout');
+  revalidatePath('/activity');
 
   return {
     errors: {},

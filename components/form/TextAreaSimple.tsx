@@ -6,11 +6,13 @@ export function TextareaSimple({
   className,
   id,
   name,
+  defaultValue,
 }: {
   placeholder: string;
   className: string;
   id: string;
   name: string;
+  defaultValue: string;
 }) {
-  return <Textarea placeholder={placeholder} id={id} name={name} />;
+  return <Textarea placeholder={placeholder} id={id} name={name} defaultValue={defaultValue} />;
 }

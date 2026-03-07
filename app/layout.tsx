@@ -50,11 +50,6 @@ export default async function RootLayout({
     }),
   ]);
 
-  // 認証エラーだけログインへ
-  if (!userRes.ok) {
-    redirect('/login');
-  }
-
   if (!categoriesRes.ok) {
     throw new Error(
       `Failed to fetch categories: ${categoriesRes.status} ${categoriesRes.statusText}`,

@@ -10,13 +10,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from './ui/dialog';
-import { deleteActivity, updateActivity } from '@/app/activity/action';
+import { updateActivity } from '@/app/activity/action';
 import { ChevronDownIcon } from 'lucide-react';
 import { Button } from './buttons/Button';
 import { SubmitButton } from './buttons/SubmitButton';
 import RunIcon from './icons/Run';
 import { ActivityForm } from './ActivityForm';
-import { Category } from '@/types/api/category';
+import { useCategories } from '@/contexts/CategoriesProvider';
+import { ActivityType } from '@/types/api/activity';
 
 const editActivityInitialState = {
   ok: false,
@@ -26,16 +27,15 @@ const editActivityInitialState = {
 };
 
 export const UpdateActivityDialogForm = ({
-  categories,
   updateOpen,
   setUpdateOpen,
-  activityId,
+  activity,
 }: {
-  categories: Category[];
   updateOpen: boolean;
   setUpdateOpen: (boolean: boolean) => void;
-  activityId: string;
+  activity: ActivityType;
 }) => {
+  const { categories } = useCategories();
   const [state, formAction] = useActionState(updateActivity, editActivityInitialState);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -66,8 +66,8 @@ export const UpdateActivityDialogForm = ({
             <DialogDescription className="text-black">Edit Activity</DialogDescription>
           </DialogHeader>
 
-          <ActivityForm categories={categories} state={state} />
-
+          <ActivityForm categories={categories} state={state} activity={activity} />
+          <input name="id" value={activity.id} id="id" type="hidden" />
           <hr />
 
           <DialogFooter>
