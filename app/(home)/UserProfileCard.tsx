@@ -52,7 +52,7 @@ export const UserProfileCard = ({
           <div className="flex items-center justify-between px-4">
             {/* to do: get bio from user */}
             <p>Bio</p>
-            <p>{user?.bio}</p>
+            {/* <p>{user?.bio}</p> */}
           </div>
           <hr />
           <Link href="/activity" className="flex justify-between px-4">
