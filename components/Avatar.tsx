@@ -11,7 +11,7 @@ export const Avatar = ({
   className,
   user,
 }: {
-  size?: 'xsmall' | 'small' | 'medium' | 'large';
+  size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge';
   className?: string;
   user?: User;
 }) => {
@@ -26,7 +26,9 @@ export const Avatar = ({
         size == 'xsmall' && 'h-9 w-9',
         size == 'small' && 'h-10 w-10',
         size == 'medium' && 'h-12 w-12',
-        size == 'large' && 'h-30 w-30',
+        size == 'large' && 'h-18 w-18',
+        size == 'xlarge' && 'h-24 w-24',
+        size == 'xxlarge' && 'h-30 w-30',
         'relative overflow-hidden rounded-full',
         className,
       )}
