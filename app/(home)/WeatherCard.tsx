@@ -78,6 +78,8 @@ export const WeatherCard = ({}) => {
         setWeather(weatherData.current_weather);
         setLocation(locationData.address);
 
+        console.log('location', locationData.address);
+
         console.log('mapped', mapped);
       });
     };
@@ -108,7 +110,7 @@ export const WeatherCard = ({}) => {
           </div>
           <div>
             <p className="text-lg font-medium">{location?.country}</p>
-            <p className="text-md font-medium">{location?.town}</p>
+            <p className="text-md font-medium">{location?.city ?? location?.town}</p>
           </div>
         </header>
         <hr />
