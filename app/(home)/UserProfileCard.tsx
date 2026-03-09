@@ -20,7 +20,9 @@ export const UserProfileCard = ({
   const date = latestActivity.created_at;
   return (
     <section className="relative col-span-1 row-span-1">
-      <Avatar size="large" className="absolute right-1/2 z-2 translate-x-1/2" />
+      <div className="absolute right-1/2 z-2 translate-x-1/2">
+        <Avatar size="large" />
+      </div>
       <div className="bg-card absolute top-9 right-1/2 h-fit w-full translate-x-1/2 rounded-sm border border-gray-200 p-4">
         <div className="mt-10 space-y-4">
           <p className="text-center text-2xl font-bold">{user?.name}</p>
