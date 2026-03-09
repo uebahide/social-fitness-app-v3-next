@@ -167,7 +167,7 @@
   * {
     @apply border-border outline-ring/50;
     transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow;
-    transition-duration: 180ms;
+    /* transition-duration: 180ms; */
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
