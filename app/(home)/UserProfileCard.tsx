@@ -16,8 +16,8 @@ export const UserProfileCard = ({
 }) => {
   const { user } = useUser();
 
-  const category = latestActivity.category;
-  const date = latestActivity.created_at;
+  const category = latestActivity?.category;
+  const date = latestActivity?.created_at;
   return (
     <section className="relative col-span-1 row-span-1">
       <div className="absolute right-1/2 z-2 translate-x-1/2">
@@ -43,12 +43,16 @@ export const UserProfileCard = ({
           <hr />
           <div className="flex flex-col gap-2 px-4">
             <p className="text-xs">Latest Activity</p>
-            <p>
-              <span className="font-bold">
-                {getTimeOfDay(date)} {category}
-              </span>{' '}
-              - {formatDate(date)}
-            </p>
+            {latestActivity ? (
+              <p>
+                <span className="font-bold">
+                  {getTimeOfDay(date)} {category}
+                </span>{' '}
+                - {formatDate(date)}
+              </p>
+            ) : (
+              <p>No activities yet</p>
+            )}
           </div>
           <hr />
           <div className="flex items-center justify-between px-4">
