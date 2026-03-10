@@ -4,35 +4,15 @@ import { Avatar } from '@/components/Avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { User } from '@/types/api/user';
 import { CheckCircle, CheckIcon, XCircle, XIcon } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-export const FriendList = () => {
+export const FriendList = ({ token, friends }: { token: string; friends: User[] }) => {
   const [search, setSearch] = useState('');
   const [currentTab, setCurrentTab] = useState<'friend' | 'request'>('friend');
-
-  const friendList = [
-    {
-      id: 1,
-      name: 'John Doe',
-      image: 'https://via.placeholder.com/150',
-    },
-    {
-      id: 2,
-      name: 'John Doe',
-      image: 'https://via.placeholder.com/150',
-    },
-    {
-      id: 3,
-      name: 'John Doe',
-      image: 'https://via.placeholder.com/150',
-    },
-    {
-      id: 4,
-      name: 'John Doe',
-      image: 'https://via.placeholder.com/150',
-    },
-  ];
+  const [searchResult, setSearchResult] = useState<User[]>([]);
+  friends = searchResult.length > 0 ? searchResult : friends;
 
   const requestList = [
     {
@@ -52,9 +32,32 @@ export const FriendList = () => {
     },
   ];
 
+  useEffect(() => {
+    async function fetchSearchResult() {
+      const response = await fetch(`${process.env.API_URL}/api/friends/search?query=${search}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      setSearchResult(data);
+    }
+    fetchSearchResult();
+  }, [search]);
+
+  console.log(search);
+  console.log(searchResult);
   return (
     <aside className="bg-card flex h-screen flex-col gap-4 rounded-sm border border-gray-200 p-3">
-      <Input id="search" name="search" type="text" placeholder="Search" className="w-full" />
+      <Input
+        id="search"
+        name="search"
+        type="text"
+        placeholder="Search"
+        className="w-full"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
       <nav>
         <ul className="flex justify-between gap-2">
           <li
@@ -79,17 +82,17 @@ export const FriendList = () => {
       </nav>
       <ul className="flex flex-col">
         {currentTab === 'friend'
-          ? friendList.map((friend) => <FriendItem key={friend.id} friend={friend} />)
+          ? friends.map((friend) => <FriendItem key={friend.id} friend={friend} />)
           : requestList.map((request) => <RequestItem key={request.id} request={request} />)}
       </ul>
     </aside>
   );
 };
 
-const FriendItem = ({ friend }: { friend: { id: number; name: string; image: string } }) => {
+const FriendItem = ({ friend }: { friend: User }) => {
   return (
     <li className="flex cursor-pointer items-center gap-5 rounded-sm p-2 hover:bg-gray-50">
-      <Avatar size="small" src={friend.image} />
+      <Avatar size="small" src={friend.image_path} />
       <div>{friend.name}</div>
     </li>
   );
