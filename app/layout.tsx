@@ -1,15 +1,14 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import Navbar from '@/components/Navbar';
-import Header from '@/components/Header';
 import Main from '@/components/Main';
 import { cookies } from 'next/headers';
 import { User } from '@/types/api/user';
 import { UserProvider } from '@/contexts/UserProvider';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { redirect } from 'next/navigation';
 import { CategoriesProvider } from '@/contexts/CategoriesProvider';
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/AppSidebar';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -60,17 +59,19 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <TooltipProvider>
-          <div className="grid h-screen grid-cols-[220px_4fr] grid-rows-[auto_1fr_auto]">
+        <SidebarProvider>
+          <TooltipProvider>
             <UserProvider initialUser={userJson.user}>
               <CategoriesProvider initialCategories={categories}>
-                <Navbar />
-                <Header />
-                <Main>{children}</Main>
+                <AppSidebar />
+                <Main>
+                  <SidebarTrigger />
+                  {children}
+                </Main>
               </CategoriesProvider>
             </UserProvider>
-          </div>
-        </TooltipProvider>
+          </TooltipProvider>
+        </SidebarProvider>
       </body>
     </html>
   );
