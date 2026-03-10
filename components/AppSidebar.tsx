@@ -29,26 +29,8 @@ const data = [
   },
   {
     name: 'Friends',
-    url: '#',
+    url: '/friend',
     icon: <UsersIcon />,
-    isActive: true,
-    items: [
-      {
-        name: 'Friend list',
-        url: '/friends/list',
-        icon: <UsersIcon />,
-      },
-      {
-        name: 'Friend requests',
-        url: '/friends/requests',
-        icon: <MailIcon />,
-      },
-      {
-        name: 'Search friends',
-        url: '/friends/search',
-        icon: <SearchIcon />,
-      },
-    ],
   },
 ];
 
