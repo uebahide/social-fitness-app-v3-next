@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { MailIcon, SearchIcon, UsersIcon } from 'lucide-react';
 
-import { Nav } from '@/components/Nav';
+import { NavMain } from '@/components/NavMain';
 import {
   Sidebar,
   SidebarContent,
@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/sidebar';
 import RunIcon from './icons/Run';
 import HomeIcon from './icons/Home';
-import { NavUser } from './nav-user';
+import { NavUser } from './NavUser';
 
 const data = [
   {
@@ -56,7 +56,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>{/* <TeamSwitcher teams={data.teams} /> */}</SidebarHeader>
       <SidebarContent>
-        <Nav items={data} />
+        <NavMain items={data} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />

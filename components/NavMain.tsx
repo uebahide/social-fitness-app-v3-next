@@ -14,7 +14,7 @@ import {
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
 
-export function Nav({
+export function NavMain({
   items,
 }: {
   items: (
