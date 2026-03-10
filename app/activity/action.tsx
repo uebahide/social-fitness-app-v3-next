@@ -45,8 +45,6 @@ export async function deleteActivity(prevState: any, formData: FormData) {
   const token = cookiesStore.get('token')?.value;
   let res: Response;
 
-  console.log('deleteActivity', formData);
-
   const id = formData.get('id');
   if (!id) {
     return {
