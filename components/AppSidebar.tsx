@@ -14,6 +14,7 @@ import {
 import RunIcon from './icons/Run';
 import HomeIcon from './icons/Home';
 import { NavUser } from './NavUser';
+import { useUser } from '@/contexts/UserProvider';
 
 const data = [
   {
@@ -52,15 +53,14 @@ const data = [
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useUser();
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>{/* <TeamSwitcher teams={data.teams} /> */}</SidebarHeader>
       <SidebarContent>
         <NavMain items={data} />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser />
-      </SidebarFooter>
+      <SidebarFooter>{user && <NavUser />}</SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );

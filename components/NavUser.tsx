@@ -22,6 +22,7 @@ import { useUser } from '@/contexts/UserProvider';
 import { Avatar } from './Avatar';
 import Link from 'next/link';
 import { useState } from 'react';
+import { LogoutButton } from './LogoutButton';
 
 export function NavUser({}: {}) {
   const { user } = useUser();
@@ -86,8 +87,7 @@ export function NavUser({}: {}) {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <LogOut />
-              Log out
+              <LogoutButton />
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
