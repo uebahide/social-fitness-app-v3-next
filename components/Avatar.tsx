@@ -8,12 +8,10 @@ import { cn } from '@/lib/utils';
 
 export const Avatar = ({
   size = 'small',
-  src,
   className,
   user,
 }: {
   size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge';
-  src?: string;
   className?: string;
   user?: User;
 }) => {
@@ -35,9 +33,9 @@ export const Avatar = ({
         className,
       )}
     >
-      <Image src={src ?? imagePath} alt="avatar" fill className="object-cover" unoptimized />
+      <Image src={imagePath} alt="avatar" fill className="object-cover" unoptimized />
     </div>
   ) : (
-    <AvatarPlaceholder size={size} />
+    <AvatarPlaceholder size={size} user={target_user} />
   );
 };

@@ -2,15 +2,19 @@
 
 import { useUser } from '@/contexts/UserProvider';
 import { cn } from '@/lib/utils';
+import { User } from '@/types/api/user';
 
 export default function AvatarPlaceholder({
   size,
   className,
+  user,
 }: {
   size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge';
   className?: string;
+  user?: User | null;
 }) {
-  const { user } = useUser();
+  const { user: login_user } = useUser();
+  const target_user = user ?? login_user;
   return (
     <div
       className={cn(
@@ -24,7 +28,7 @@ export default function AvatarPlaceholder({
         className,
       )}
     >
-      {user?.name[0].toUpperCase()}
+      {target_user?.name[0].toUpperCase()}
     </div>
   );
 }
