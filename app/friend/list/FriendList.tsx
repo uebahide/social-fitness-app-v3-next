@@ -5,95 +5,25 @@ import { RequestItem } from '@/components/RequestItem';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { FriendRequest, User } from '@/types/api/user';
-import React, { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
-export const FriendList = ({ token }: { token: string }) => {
+export const FriendList = ({
+  friends,
+  requests,
+}: {
+  friends: User[];
+  requests: FriendRequest[];
+}) => {
   const [search, setSearch] = useState('');
   const [currentTab, setCurrentTab] = useState<'friend' | 'request'>('friend');
-  const [friendsSearchResult, setFriendsSearchResult] = useState<User[]>([]);
-  const [requestsSearchResult, setRequestsSearchResult] = useState<FriendRequest[]>([]);
-  const [debouncedSearch, setDebouncedSearch] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearch(search.trim());
-    }, 400);
-
-    return () => clearTimeout(timer);
-  }, [search]);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    async function fetchFriendsSearchResult() {
-      try {
-        setLoading(true);
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/friends/search?query=${search}`,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-            signal: controller.signal,
-          },
-        );
-
-        if (!response.ok) {
-          throw new Error(`Failed: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setFriendsSearchResult(data.friends);
-      } catch (error) {
-        if ((error as Error).name !== 'AbortError') {
-          console.error(error);
-          setFriendsSearchResult([]);
-        }
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    async function fetchRequestsSearchResult() {
-      try {
-        setLoading(true);
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/friend-requests/search?query=${search}`,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-            signal: controller.signal,
-          },
-        );
-
-        if (!response.ok) {
-          throw new Error(`Failed: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setRequestsSearchResult(data.friend_requests ?? []);
-      } catch (error) {
-        if ((error as Error).name !== 'AbortError') {
-          console.error(error);
-          setRequestsSearchResult([]);
-        }
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    if (currentTab === 'friend') {
-      fetchFriendsSearchResult();
-    } else {
-      fetchRequestsSearchResult();
-    }
-
-    return () => controller.abort();
-  }, [debouncedSearch, token, currentTab]);
+  const filteredFriends = useMemo(() => {
+    return friends.filter((friend) => friend?.name?.toLowerCase().includes(search.toLowerCase()));
+  }, [friends, search]);
+  const filteredRequests = useMemo(() => {
+    return requests.filter((request) =>
+      request.sender?.name?.toLowerCase().includes(search.toLowerCase()),
+    );
+  }, [requests, search]);
 
   return (
     <aside className="bg-card flex h-screen flex-col gap-4 rounded-sm border border-gray-200 p-3">
@@ -111,9 +41,7 @@ export const FriendList = ({ token }: { token: string }) => {
           <li
             onClick={() => {
               setCurrentTab('friend');
-              setRequestsSearchResult([]);
               setSearch('');
-              setDebouncedSearch('');
             }}
             className={cn(
               currentTab === 'friend' ? 'text-black' : 'text-gray-500',
@@ -125,9 +53,7 @@ export const FriendList = ({ token }: { token: string }) => {
           <li
             onClick={() => {
               setCurrentTab('request');
-              setFriendsSearchResult([]);
               setSearch('');
-              setDebouncedSearch('');
             }}
             className={cn(
               currentTab === 'request' ? 'text-black' : 'text-gray-500',
@@ -140,10 +66,8 @@ export const FriendList = ({ token }: { token: string }) => {
       </nav>
       <ul className="flex flex-col">
         {currentTab === 'friend'
-          ? friendsSearchResult.map((friend) => <FriendItem key={friend.id} friend={friend} />)
-          : requestsSearchResult.map((request) => (
-              <RequestItem key={request.id} request={request} />
-            ))}
+          ? filteredFriends.map((friend) => <FriendItem key={friend.id} friend={friend} />)
+          : filteredRequests.map((request) => <RequestItem key={request.id} request={request} />)}
       </ul>
     </aside>
   );
