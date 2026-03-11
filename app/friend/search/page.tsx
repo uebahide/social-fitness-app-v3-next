@@ -1,5 +1,4 @@
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 import { UserList } from './UserList';
 
 export default async function FriendPage() {

@@ -1,6 +1,8 @@
 'use client';
 
 import { Avatar } from '@/components/Avatar';
+import { SubmitButton } from '@/components/buttons/SubmitButton';
+import { RequestItem } from '@/components/RequestItem';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
@@ -14,23 +16,7 @@ export const FriendList = ({ token, friends }: { token: string; friends: User[] 
   const [searchResult, setSearchResult] = useState<User[]>([]);
   friends = searchResult.length > 0 ? searchResult : friends;
 
-  const requestList = [
-    {
-      id: 5,
-      name: 'Jane Doe',
-      image: 'https://via.placeholder.com/150',
-    },
-    {
-      id: 6,
-      name: 'Jane Doe',
-      image: 'https://via.placeholder.com/150',
-    },
-    {
-      id: 7,
-      name: 'Jane Doe',
-      image: 'https://via.placeholder.com/150',
-    },
-  ];
+  const requestList: User[] = [];
 
   useEffect(() => {
     async function fetchSearchResult() {
@@ -83,7 +69,9 @@ export const FriendList = ({ token, friends }: { token: string; friends: User[] 
       <ul className="flex flex-col">
         {currentTab === 'friend'
           ? friends.map((friend) => <FriendItem key={friend.id} friend={friend} />)
-          : requestList.map((request) => <RequestItem key={request.id} request={request} />)}
+          : requestList.map((requestSender) => (
+              <RequestItem key={requestSender.id} requestSender={requestSender} />
+            ))}
       </ul>
     </aside>
   );
@@ -92,27 +80,8 @@ export const FriendList = ({ token, friends }: { token: string; friends: User[] 
 const FriendItem = ({ friend }: { friend: User }) => {
   return (
     <li className="flex cursor-pointer items-center gap-5 rounded-sm p-2 hover:bg-gray-50">
-      <Avatar size="small" src={friend.image_path} />
+      <Avatar size="small" user={friend} />
       <div>{friend.name}</div>
-    </li>
-  );
-};
-
-const RequestItem = ({ request }: { request: { id: number; name: string; image: string } }) => {
-  return (
-    <li className="flex cursor-pointer items-center justify-between gap-5 rounded-sm p-2 hover:bg-gray-50">
-      <div className="flex items-center gap-5">
-        <Avatar size="small" src={request.image} />
-        <div>{request.name}</div>
-      </div>
-      <div className="flex items-center gap-2">
-        <button className="cursor-pointer rounded-full bg-gray-100 p-2 text-gray-500 hover:bg-gray-200">
-          <CheckIcon />
-        </button>
-        <button className="cursor-pointer rounded-full bg-gray-100 p-2 text-gray-500 hover:bg-gray-200">
-          <XIcon />
-        </button>
-      </div>
     </li>
   );
 };
