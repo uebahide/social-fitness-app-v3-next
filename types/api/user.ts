@@ -18,6 +18,8 @@ export type FriendRequest = {
   status: 'pending' | 'accepted' | 'rejected';
   created_at: string;
   updated_at: string;
+  sender: User;
+  receiver: User;
 };
 
 export type Friend = {

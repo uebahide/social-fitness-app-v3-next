@@ -28,7 +28,7 @@ export default function AvatarPlaceholder({
         className,
       )}
     >
-      {target_user?.name[0].toUpperCase()}
+      {target_user?.name?.slice(0, 2).toUpperCase()}
     </div>
   );
 }

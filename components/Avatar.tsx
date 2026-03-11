@@ -36,6 +36,6 @@ export const Avatar = ({
       <Image src={imagePath} alt="avatar" fill className="object-cover" unoptimized />
     </div>
   ) : (
-    <AvatarPlaceholder size={size} user={target_user} />
+    <AvatarPlaceholder size={size} user={target_user ?? null} />
   );
 };

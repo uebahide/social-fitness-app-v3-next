@@ -53,7 +53,6 @@ export const UserList = ({ token }: { token: string }) => {
 
         const data = await response.json();
         setSearchResult(data.users ?? []);
-        console.log(searchResult);
       } catch (error) {
         if ((error as Error).name !== 'AbortError') {
           console.error(error);
@@ -99,7 +98,6 @@ const UserItem = ({ user, currentUser }: { user: User; currentUser: User | null 
     data: {},
   });
 
-  console.log('echo user', user);
   const requestHasAlreadyBeenSentByMe =
     user.friend_requests_received.some(
       (request) => request.status === 'pending' && request.sender_id === currentUser?.id,

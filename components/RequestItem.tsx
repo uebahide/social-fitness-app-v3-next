@@ -1,19 +1,12 @@
 import { CheckIcon, XIcon } from 'lucide-react';
 import { SubmitButton } from './buttons/SubmitButton';
 import { Avatar } from './Avatar';
-import { User } from '@/types/api/user';
-import { useUser } from '@/contexts/UserProvider';
+import { FriendRequest, User } from '@/types/api/user';
 import { useActionState } from 'react';
 import { acceptFriendRequest, rejectFriendRequest } from '@/app/friend/action';
 
-export const RequestItem = ({ requestSender }: { requestSender: User }) => {
-  const { user: currentUser } = useUser();
-  const request = requestSender.friend_requests_sent.find(
-    (request) =>
-      request.status === 'pending' &&
-      request.sender_id === requestSender.id &&
-      request.receiver_id === currentUser?.id,
-  );
+export const RequestItem = ({ request }: { request: FriendRequest }) => {
+  const requestSender = request.sender;
 
   return (
     <li className="flex cursor-pointer items-center justify-between gap-5 rounded-sm p-2 hover:bg-gray-50">
@@ -37,10 +30,14 @@ export const RequestItemButton = ({ requestId }: { requestId: string }) => {
   const [acceptState, acceptAction] = useActionState(acceptFriendRequest, initialState);
   const [rejectState, rejectAction] = useActionState(rejectFriendRequest, initialState);
 
-  const isAlreadyResponded = acceptState.ok || rejectState.ok;
+  const isAccepted = acceptState.ok;
+  const isRejected = rejectState.ok;
 
-  if (isAlreadyResponded) {
-    return <div className="text-xs text-gray-500">Responded</div>;
+  if (isAccepted) {
+    return <div className="text-xs text-green-500">Accepted</div>;
+  }
+  if (isRejected) {
+    return <div className="text-xs text-red-500">Rejected</div>;
   }
   return (
     <div className="flex items-center gap-2">

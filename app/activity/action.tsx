@@ -126,8 +126,6 @@ export async function updateActivity(prevState: any, formData: FormData) {
     throw new Error(`Network error while logout : ${String(e)}`);
   }
 
-  console.log('res', res);
-
   if (!res.ok) {
     const resJson = await res.json();
     return {

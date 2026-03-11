@@ -77,10 +77,6 @@ export const WeatherCard = ({}) => {
         setDailyForecast(mapped);
         setWeather(weatherData.current_weather);
         setLocation(locationData.address);
-
-        console.log('location', locationData.address);
-
-        console.log('mapped', mapped);
       });
     };
     getWeather();
