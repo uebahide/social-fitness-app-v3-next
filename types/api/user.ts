@@ -28,4 +28,5 @@ export type Friend = {
   friend_id: number;
   created_at: string;
   updated_at: string;
+  friend: User;
 };
