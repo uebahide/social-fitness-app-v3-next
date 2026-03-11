@@ -2,8 +2,9 @@ import { CheckIcon, XIcon } from 'lucide-react';
 import { SubmitButton } from './buttons/SubmitButton';
 import { Avatar } from './Avatar';
 import { FriendRequest, User } from '@/types/api/user';
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import { acceptFriendRequest, rejectFriendRequest } from '@/app/friend/action';
+import { useFormStatus } from 'react-dom';
 
 export const RequestItem = ({ request }: { request: FriendRequest }) => {
   const requestSender = request.sender;
@@ -29,6 +30,9 @@ const initialState = {
 export const RequestItemButton = ({ requestId }: { requestId: string }) => {
   const [acceptState, acceptAction] = useActionState(acceptFriendRequest, initialState);
   const [rejectState, rejectAction] = useActionState(rejectFriendRequest, initialState);
+  const [loading, setLoading] = useState(false);
+
+  console.log('loading', loading);
 
   const isAccepted = acceptState.ok;
   const isRejected = rejectState.ok;
@@ -42,9 +46,12 @@ export const RequestItemButton = ({ requestId }: { requestId: string }) => {
   return (
     <div className="flex items-center gap-2">
       {/* accept request form */}
-      <form action={acceptAction}>
+      <form action={acceptAction} onSubmit={() => setLoading(true)}>
         <input type="hidden" name="request_id" id="request_id" value={requestId} />
-        <SubmitButton className="cursor-pointer rounded-full bg-gray-100 p-2 text-gray-500 hover:bg-gray-200">
+        <SubmitButton
+          className="cursor-pointer rounded-full bg-gray-100 p-2 text-gray-500 hover:bg-gray-200 disabled:bg-gray-50 disabled:text-gray-300"
+          disabled={loading}
+        >
           <CheckIcon />
         </SubmitButton>
         {acceptState.message && <div className="text-xs text-gray-500">{acceptState.message}</div>}
@@ -52,9 +59,12 @@ export const RequestItemButton = ({ requestId }: { requestId: string }) => {
         {acceptState.ok && <div className="text-xs text-green-500">{acceptState.message}</div>}
       </form>
       {/* reject request form */}
-      <form action={rejectAction}>
+      <form action={rejectAction} onSubmit={() => setLoading(true)}>
         <input type="hidden" name="request_id" id="request_id" value={requestId} />
-        <SubmitButton className="cursor-pointer rounded-full bg-gray-100 p-2 text-gray-500 hover:bg-gray-200">
+        <SubmitButton
+          className="cursor-pointer rounded-full bg-gray-100 p-2 text-gray-500 hover:bg-gray-200 disabled:bg-gray-50 disabled:text-gray-300"
+          disabled={loading}
+        >
           <XIcon />
         </SubmitButton>
       </form>
