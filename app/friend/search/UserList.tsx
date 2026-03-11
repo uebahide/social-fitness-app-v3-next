@@ -130,7 +130,7 @@ const UserItem = ({ user, currentUser }: { user: User; currentUser: User | null 
         )}
         {isFriend && <div className="text-xs text-gray-500">Already friend</div>}
         {!requestHasAlreadyBeenSentByMe && !requestHasAlreadyBeenSentByHim && !isFriend && (
-          <SubmitButton className="cursor-pointer rounded-sm bg-gray-100 p-2 text-gray-500 hover:bg-gray-200">
+          <SubmitButton className="cursor-pointer rounded-sm bg-gray-100 p-2 text-gray-500 hover:bg-gray-200 disabled:bg-gray-50 disabled:text-gray-300">
             Request
           </SubmitButton>
         )}
