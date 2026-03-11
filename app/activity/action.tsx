@@ -45,8 +45,6 @@ export async function deleteActivity(prevState: any, formData: FormData) {
   const token = cookiesStore.get('token')?.value;
   let res: Response;
 
-  console.log('deleteActivity', formData);
-
   const id = formData.get('id');
   if (!id) {
     return {
@@ -127,8 +125,6 @@ export async function updateActivity(prevState: any, formData: FormData) {
   } catch (e) {
     throw new Error(`Network error while logout : ${String(e)}`);
   }
-
-  console.log('res', res);
 
   if (!res.ok) {
     const resJson = await res.json();

@@ -10,14 +10,16 @@ export const SubmitButton = ({
   color = 'primary',
   className,
   children,
+  disabled,
 }: {
   color?: buttonColor;
   className?: string;
   children: React.ReactNode;
+  disabled?: boolean;
 }) => {
   const { pending } = useFormStatus();
   return (
-    <Button color={color} type="submit" className={cn(className)} disabled={pending}>
+    <Button color={color} type="submit" className={cn(className)} disabled={pending || disabled}>
       {pending ? <Spinner /> : children}
     </Button>
   );

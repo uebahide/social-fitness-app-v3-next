@@ -35,17 +35,12 @@ const data = [
     items: [
       {
         name: 'Friend list',
-        url: '/friends/list',
+        url: '/friend/list',
         icon: <UsersIcon />,
       },
       {
-        name: 'Friend requests',
-        url: '/friends/requests',
-        icon: <MailIcon />,
-      },
-      {
-        name: 'Search friends',
-        url: '/friends/search',
+        name: 'Search',
+        url: '/friend/search',
         icon: <SearchIcon />,
       },
     ],
