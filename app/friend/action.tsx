@@ -76,6 +76,8 @@ export async function acceptFriendRequest(prevState: any, formData: FormData) {
     throw new Error(`Failed to accept friend request : ${resJson.message}`);
   }
 
+  revalidatePath('/friend/list', 'page');
+
   return {
     message: 'Friend request accepted successfully',
     error: '',
@@ -116,6 +118,8 @@ export async function rejectFriendRequest(prevState: any, formData: FormData) {
     const resJson = await res.json();
     throw new Error(`Failed to reject friend request : ${resJson.message}`);
   }
+
+  revalidatePath('/friend/list', 'page');
 
   return {
     message: 'Friend request rejected successfully',
