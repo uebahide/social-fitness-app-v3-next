@@ -3,7 +3,7 @@
 import { Avatar } from '@/components/Avatar';
 import { SubmitButton } from '@/components/buttons/SubmitButton';
 import { Input } from '@/components/ui/input';
-import { User } from '@/types/api/user';
+import { FriendRequest, User } from '@/types/api/user';
 import React, { useActionState, useEffect, useState } from 'react';
 import { sendFriendRequest } from '../action';
 import { useUser } from '@/contexts/UserProvider';
@@ -97,6 +97,12 @@ const UserItem = ({ user, currentUser }: { user: User; currentUser: User | null 
     ok: false,
     data: {},
   });
+  const sentRequest = {
+    ...user.friend_requests_sent.find(
+      (request) => request.status === 'pending' && request.receiver_id === currentUser?.id,
+    ),
+    sender: user,
+  } as FriendRequest;
 
   const requestHasAlreadyBeenSentByMe =
     user.friend_requests_received.some(
@@ -108,7 +114,7 @@ const UserItem = ({ user, currentUser }: { user: User; currentUser: User | null 
   );
 
   if (requestHasAlreadyBeenSentByHim) {
-    return <RequestItem requestSender={user} />;
+    return <RequestItem request={sentRequest ?? ({} as FriendRequest)} />;
   }
 
   return (
