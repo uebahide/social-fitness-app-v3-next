@@ -32,8 +32,6 @@ export const RequestItemButton = ({ requestId }: { requestId: string }) => {
   const [rejectState, rejectAction] = useActionState(rejectFriendRequest, initialState);
   const [loading, setLoading] = useState(false);
 
-  console.log('loading', loading);
-
   const isAccepted = acceptState.ok;
   const isRejected = rejectState.ok;
 
