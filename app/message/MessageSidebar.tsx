@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { useUser } from '@/contexts/UserProvider';
 import { cn } from '@/lib/utils';
 import { Room } from '@/types/api/message';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 export const MessageSidebar = ({
   rooms,
@@ -16,7 +16,20 @@ export const MessageSidebar = ({
   setSelectedRoom: (room: Room) => void;
   selectedRoom: Room | null;
 }) => {
+  const { user: currentUser } = useUser();
   const [search, setSearch] = useState('');
+  const filteredRooms = useMemo(() => {
+    const keyword = search.toLowerCase().trim();
+
+    return rooms.filter((room) => {
+      const friend = room.users.find((user) => user.id !== currentUser?.id);
+
+      if (!friend) return false;
+      if (!keyword) return true;
+
+      return friend.name.toLowerCase().includes(keyword);
+    });
+  }, [rooms, search, currentUser]);
   return (
     <aside className="bg-card flex flex-col gap-4 rounded-l-sm border border-r-0 border-gray-200 p-3">
       <Input
@@ -29,7 +42,7 @@ export const MessageSidebar = ({
         onChange={(e) => setSearch(e.target.value)}
       />
       <ul className="flex flex-col gap-3">
-        {rooms.map((room) => (
+        {filteredRooms.map((room) => (
           <RoomListItem
             key={room.id}
             room={room}
