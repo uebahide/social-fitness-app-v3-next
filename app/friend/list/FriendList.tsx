@@ -83,7 +83,7 @@ const FriendItem = ({ friend }: { friend: User }) => {
         <Avatar size="small" user={friend ?? null} />
         <div>{friend.name}</div>
       </div>
-      <Link href={'/message'}>
+      <Link href={`/message?friendId=${friend.id}`}>
         <Button color="secondary">
           <MessageCircleIcon className="size-5 cursor-pointer text-gray-500 hover:text-gray-700" />
         </Button>

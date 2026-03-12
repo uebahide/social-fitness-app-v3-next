@@ -5,8 +5,24 @@ import { MessagePanel } from './MessagePanel';
 import { MessageSidebar } from './MessageSidebar';
 import { Room } from '@/types/api/message';
 
-export const MessageClient = ({ rooms, token }: { rooms: Room[]; token: string }) => {
+export const MessageClient = ({
+  rooms,
+  token,
+  friendId,
+}: {
+  rooms: Room[];
+  token: string;
+  friendId?: string;
+}) => {
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
+
+  useEffect(() => {
+    if (friendId) {
+      setSelectedRoom(
+        rooms.find((room) => room.users.some((user) => user.id === Number(friendId))) ?? null,
+      );
+    }
+  }, [friendId, rooms]);
 
   return (
     <div className="grid grid-cols-[4fr_9fr]">

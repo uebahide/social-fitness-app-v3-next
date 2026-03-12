@@ -41,7 +41,7 @@ export const MessageSidebar = ({
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <ul className="flex flex-col gap-3">
+      <ul className="flex h-[calc(100vh-200px)] flex-col gap-3 overflow-y-auto">
         {filteredRooms.map((room) => (
           <RoomListItem
             key={room.id}
@@ -70,7 +70,7 @@ const RoomListItem = ({
     <li
       key={room.id}
       className={cn(
-        'ml-2 flex cursor-pointer items-center gap-2 overflow-y-auto rounded-sm p-2 hover:bg-gray-100',
+        'ml-2 flex cursor-pointer items-center gap-2 rounded-sm p-2 hover:bg-gray-100',
         selectedRoom?.id === room.id ? 'bg-gray-100' : 'hover:bg-gray-100',
       )}
       onClick={() => setSelectedRoom(room)}
