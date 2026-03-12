@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { MailIcon, SearchIcon, UsersIcon } from 'lucide-react';
+import { MailIcon, MessageCircleIcon, SearchIcon, UsersIcon } from 'lucide-react';
 
 import { NavMain } from '@/components/NavMain';
 import {
@@ -44,6 +44,11 @@ const data = [
         icon: <SearchIcon />,
       },
     ],
+  },
+  {
+    name: 'Messages',
+    url: '/message',
+    icon: <MessageCircleIcon />,
   },
 ];
 
