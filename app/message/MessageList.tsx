@@ -55,7 +55,7 @@ const MessageGroup = ({ message }: { message: Message }) => {
 
 const MyMessageBubble = ({ message }: { message: Message }) => {
   return (
-    <div className="flex flex-col gap-4 rounded-2xl bg-purple-300 px-4 py-2">
+    <div className="flex flex-col gap-4 rounded-2xl bg-purple-500 px-4 py-2 font-mono text-sm text-white">
       <div key={message.id} className="whitespace-pre-wrap">
         {message.body}
       </div>
@@ -64,7 +64,7 @@ const MyMessageBubble = ({ message }: { message: Message }) => {
 };
 const OtherMessageBubble = ({ message }: { message: Message }) => {
   return (
-    <div className="bg-brand-secondary-200 flex flex-col gap-4 rounded-2xl px-4 py-2">
+    <div className="bg-brand-secondary-100 flex flex-col gap-4 rounded-2xl px-4 py-2 font-mono text-sm">
       <div key={message.id} className="whitespace-pre-wrap">
         {message.body}
       </div>
