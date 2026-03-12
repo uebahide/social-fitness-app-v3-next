@@ -69,7 +69,7 @@ export const UserList = ({ token }: { token: string }) => {
   }, [debouncedSearch, token]);
 
   return (
-    <aside className="bg-card flex h-screen flex-col gap-4 rounded-sm border border-gray-200 p-3">
+    <aside className="bg-card flex h-[calc(100vh-92px)] flex-col gap-4 rounded-sm border border-gray-200 p-3">
       <Input
         id="search"
         name="search"
@@ -80,7 +80,7 @@ export const UserList = ({ token }: { token: string }) => {
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      <ul className="flex flex-col">
+      <ul className="flex flex-col overflow-y-auto">
         {searchResult &&
           searchResult.map((user) => (
             <UserItem key={user.id} user={user} currentUser={currentUser} />

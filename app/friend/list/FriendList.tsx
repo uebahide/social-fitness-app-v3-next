@@ -29,7 +29,7 @@ export const FriendList = ({
   }, [requests, search]);
 
   return (
-    <aside className="bg-card flex h-screen flex-col gap-4 rounded-sm border border-gray-200 p-3">
+    <aside className="bg-card flex h-[calc(100vh-92px)] flex-col gap-4 rounded-sm border border-gray-200 p-3">
       <Input
         id="search"
         name="search"
@@ -67,7 +67,7 @@ export const FriendList = ({
           </li>
         </ul>
       </nav>
-      <ul className="flex flex-col">
+      <ul className="flex flex-col overflow-y-auto">
         {currentTab === 'friend'
           ? filteredFriends.map((friend) => <FriendItem key={friend.id} friend={friend} />)
           : filteredRequests.map((request) => <RequestItem key={request.id} request={request} />)}
