@@ -1,5 +1,3 @@
-import { ActivityType } from '@/types/api/activity';
-
 export async function getAnalyticsDashboard(token: string) {
   const analytics = await fetch(`${process.env.API_URL}/api/analytics/activities/dashboard`, {
     method: 'GET',
