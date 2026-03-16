@@ -1,10 +1,13 @@
 'use client';
 
 import { Avatar } from '@/components/Avatar';
+import { Button } from '@/components/buttons/Button';
 import { RequestItem } from '@/components/RequestItem';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { FriendRequest, User } from '@/types/api/user';
+import { MessageCircleIcon } from 'lucide-react';
+import Link from 'next/link';
 import { useMemo, useState } from 'react';
 
 export const FriendList = ({
@@ -26,7 +29,7 @@ export const FriendList = ({
   }, [requests, search]);
 
   return (
-    <aside className="bg-card flex h-screen flex-col gap-4 rounded-sm border border-gray-200 p-3">
+    <aside className="bg-card flex h-[calc(100vh-92px)] flex-col gap-4 rounded-sm border border-gray-200 p-3">
       <Input
         id="search"
         name="search"
@@ -64,7 +67,7 @@ export const FriendList = ({
           </li>
         </ul>
       </nav>
-      <ul className="flex flex-col">
+      <ul className="flex flex-col overflow-y-auto">
         {currentTab === 'friend'
           ? filteredFriends.map((friend) => <FriendItem key={friend.id} friend={friend} />)
           : filteredRequests.map((request) => <RequestItem key={request.id} request={request} />)}
@@ -75,9 +78,16 @@ export const FriendList = ({
 
 const FriendItem = ({ friend }: { friend: User }) => {
   return (
-    <li className="flex cursor-pointer items-center gap-5 rounded-sm p-2 hover:bg-gray-50">
-      <Avatar size="small" user={friend ?? null} />
-      <div>{friend.name}</div>
+    <li className="flex items-center justify-between gap-5">
+      <div className="flex w-full cursor-pointer items-center gap-2 rounded-sm p-2 hover:bg-gray-50">
+        <Avatar size="small" user={friend ?? null} />
+        <div>{friend.name}</div>
+      </div>
+      <Link href={`/message?friendId=${friend.id}`}>
+        <Button color="secondary">
+          <MessageCircleIcon className="size-5 cursor-pointer text-gray-500 hover:text-gray-700" />
+        </Button>
+      </Link>
     </li>
   );
 };
