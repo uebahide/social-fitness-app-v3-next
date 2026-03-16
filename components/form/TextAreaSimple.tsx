@@ -17,8 +17,8 @@ export function TextareaSimple({
   name: string;
   defaultValue?: string;
   value?: string;
-  onChange: (e: string) => void;
-  onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+  onChange?: (e: string) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
 }) {
   return (
     <Textarea
@@ -28,7 +28,7 @@ export function TextareaSimple({
       value={value}
       defaultValue={defaultValue}
       className={className}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(e) => onChange?.(e.target.value)}
       onKeyDown={onKeyDown}
     />
   );
