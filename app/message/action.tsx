@@ -26,10 +26,10 @@ export async function sendMessage(prevState: any, formData: FormData) {
   }
 
   if (!res.ok) {
-    const resJson = await res.json();
+    console.log(res.statusText);
     return {
-      errors: resJson.errors,
-      message: resJson.message,
+      errors: res.statusText,
+      message: 'response error',
       data: {},
       ok: false,
     };
